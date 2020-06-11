@@ -1,0 +1,61 @@
+.user-page {
+  .head {
+    display: flex;
+    justify-content: space-between;
+    div {
+      display: flex;
+      img {
+        display: block;
+        height: 2rem;
+        margin-top: 10.2%;
+        margin-left: 1rem;
+        filter: opacity(45%);
+      }
+    }
+    h4 {
+      padding-right: 2rem;
+      display: flex;
+      align-items: center;
+      color: rgba(0, 0, 0, .65);
+    }
+  }
+  .result {
+    h4 {
+      padding-left: 2rem;
+    }
+    .test-list {
+      display: flex;
+      justify-content: space-between;
+    }
+    .name {
+      color: black;
+    }
+    .date {
+      color: #353d69;
+    }
+    .collection {
+      a.collection-item {
+        &:hover {
+          background-color: #536dfe17;
+        }
+      }
+    }
+  }
+  .modal {
+    .modal-content {
+      .indent-1 {
+        padding-left: .3rem;
+        font-size: 1.5rem;
+      }
+      .indent-2 {
+        padding-left: 1rem;
+        font-size: 1.2rem;
+      }
+      .indent-3 {
+        padding-left: 2rem;
+      }
+      width: 90%;
+      margin: 0 auto;
+    }
+  }
+}

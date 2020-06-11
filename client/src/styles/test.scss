@@ -1,0 +1,33 @@
+.auth-message {
+  padding: 1rem 0;
+  margin-top: 1rem;
+  border-radius: 15px;
+}
+.test-description {
+  p {
+    text-indent: 2rem;
+  }
+}
+.passing-test {
+  .test-description {
+    color: rgba(0, 0, 0, 0.5);;
+  }
+  .questions {
+    .question {
+      margin-left: 2rem;
+      span{
+        color: #263238;
+        &:after {
+          background: #3d5afe;
+          border: #536dfe;
+        }
+      }
+    }
+  }
+  button {
+    margin-top: .5rem;
+  }
+  .stats {
+    text-align: right;
+  }
+}

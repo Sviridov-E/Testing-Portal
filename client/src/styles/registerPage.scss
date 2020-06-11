@@ -1,0 +1,51 @@
+.register-page {
+  .register-container{
+
+    height: 80vh;
+    .modal {
+      .datepicker-date-display {
+        background: #536dfe;
+      }
+    }
+    .user-input{
+      padding-left: 1rem;
+      padding-right: 2rem;
+      input {
+        color: #e8eaf6;
+        padding-left: .5rem;
+      }
+      label {
+        color: #8c9eff;
+      }
+    }
+    .gender {
+      position: relative;
+      top: 10px;
+      fieldset {
+        border: none;
+      }
+      span {
+        color: #8c9eff;
+        padding-right: .5rem;
+      }
+      label {
+        padding: .3rem;
+      }
+    }
+    .birthdate {
+      label {
+        left: 0;
+      }
+    }
+  }
+  h4 {
+    padding-left: 3rem;
+    color:#e8eaf6;
+  }
+  .buttons {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 2rem;
+    padding-bottom: 1rem;
+  }
+}
