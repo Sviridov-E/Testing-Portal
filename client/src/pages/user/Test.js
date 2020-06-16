@@ -11,7 +11,7 @@ import { NotAuthenticated } from '../../components/NotAuthenticated';
 export const Test = () => {
   const [ data, setData ] = useState({});
   const [ testStarted, setTestStarted] = useState(false);
-  const [ testFinished, setTestFinished ] = useState(false);
+  const [ testIsAlreadyPassed, setTestIsAlreadyPassed ] = useState(false);
 
   const params = useParams();
   const history = useHistory();
@@ -25,8 +25,11 @@ export const Test = () => {
       const data = await request(`/api/tests/${params.id}`, 'GET', null, {
         Authorization: `Bearer ${token}`
       });
+      console.log(data);
+      
       // return {name, description, quantityOfQuestions}
-      setData(data);
+      setData({name: data.name, description: data.description, quantityOfQuestions: data.quantityOfQuestions});
+      setTestIsAlreadyPassed(data.testIsAlreadyPassed);
     } catch (e) {
       console.log(e.message);      
     }
@@ -63,7 +66,7 @@ export const Test = () => {
     <TestDescription 
       data={data} 
       clickStart={clickStart}
-      testFinished={testFinished}
+      testIsAlreadyPassed={testIsAlreadyPassed}
       returnToTestList={returnToTestList}
     /> 
 

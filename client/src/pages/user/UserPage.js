@@ -31,6 +31,7 @@ export const UserPage = () => {
   const { request, loading } = useHttp();
 
   const fetchedData = useCallback( async () => {
+    // Информация о пользователе
     try {
       const data = await request(`/api/users/profile${isAdmin ? '/'+ userId : ''}`, 'GET', null, {
         Authorization: `Bearer ${token}`

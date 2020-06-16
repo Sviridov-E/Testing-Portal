@@ -20,8 +20,14 @@ router.get('/', auth, async (req, res) => {
 router.get('/:id', auth, async (req, res) => {
   // Описание теста
   try {
-    const data = await Test.findById(req.params.id, {name: true, description: true, quantityOfQuestions: true, _id: false});
-    res.json(data);
+    const testId = req.params.id;
+    const {name, description, quantityOfQuestions} = await Test.findById(testId, {name: true, description: true, quantityOfQuestions: true, _id: false});
+   
+    const { passedTests } = await User.findById(req.userId, {passedTests: true});
+    
+    const testIsAlreadyPassed = passedTests.findIndex(item => String(item.owner) === testId) !== -1 ? true : false;
+        
+    res.json({name, description, quantityOfQuestions, testIsAlreadyPassed});
   } catch (e) {
     res.status(500).json({message: 'Ошибка при подключении к базе данных'});
   }
@@ -50,7 +56,9 @@ router.post('/passing/:id', auth, async (req, res) => {
     const testId = req.params.id;
     const user = await User.findById(req.userId, {passedTests: true, firstName: true, lastName: true});    
 
-    if(user.passedTests.includes(testId)){
+    const testIsAlreadyPassed = user.passedTests.findIndex(item => String(item.owner) === testId) !== -1 ? true : false;
+
+    if(testIsAlreadyPassed){
       return res.status(400).json({message: 'Данный тест уже пройден'});
     }
 

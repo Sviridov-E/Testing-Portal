@@ -13,7 +13,7 @@ export const useModalResult = (token, userId) => {
   const fetched = useCallback(async () => {
     if(!testId) return;
     
-    const result = await request(`/api/result/${testId}${userId ? '/'+userId : ''}`, 'GET', null, {
+    const result = await request(`/api/result/test/${testId}${userId ? '/'+userId : ''}`, 'GET', null, {
       Authorization: `Bearer ${token}`
     });
     // data take value {}

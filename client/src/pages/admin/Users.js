@@ -20,7 +20,7 @@ export const Users = () => {
   })
   const { request, loading } = useHttp();
 
-  const fetchedUsers = useCallback( async query =>{
+  const fetchedUsers = useCallback( async query => {
     try {
       const users = await request(`/api/users${query}`, 'GET', null, {
         Authorization: `Bearer ${token}`
@@ -41,7 +41,6 @@ export const Users = () => {
     <UserFilter
       requestParams={requestParams}
       setRequestParams={setRequestParams}
-      fetchedUsers={fetchedUsers}
     />
     <UserTable
       usersList={usersList}

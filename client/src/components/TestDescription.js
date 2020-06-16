@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const TestDescription = ({ data, clickStart, testFinished, returnToTestList }) => (
+export const TestDescription = ({ data, clickStart, testIsAlreadyPassed, returnToTestList }) => (
   <div className="test-description">
     <div className="row">
       <h3 className="col s12 center">{data.name}</h3>
@@ -11,11 +11,13 @@ export const TestDescription = ({ data, clickStart, testFinished, returnToTestLi
     <div className="row">
       <p className="col s4 offset-s4"><strong>Количество вопросов: </strong>{data.quantityOfQuestions}</p>
     </div>
-    <div className="row center">
+    <div className="row button">
       {
-        testFinished ?
+        testIsAlreadyPassed ?
         <>
-          <h6>Вы уже проходили этот тест</h6>
+          <div className="card-panel blue-grey lighten-4 already-passed">
+            <strong className="black-text">Вы уже проходили этот тест.</strong>
+          </div>
           <a href="/" onClick={returnToTestList} className="waves-effect waves-light btn-large indigo darken-1">Вернуться к списку</a>
         </> : 
         <a href="/" onClick={clickStart} className="waves-effect waves-light btn-large indigo darken-1">Начать тест</a>

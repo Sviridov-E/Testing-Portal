@@ -9,25 +9,29 @@ export const ResultModalWindow = ({modalRef, initialize, content, loading, close
   const expand = init => { 
     if(init === null) return 'Шыш';
     let array = [];
+    let key = 0;
   
-    function dig(obj, indent){
+    function recursion(obj, indent){
       
       if(obj.hasOwnProperty('value')){    
-        array.push(<div className={`indent-${indent}`}><strong>{obj.title}: </strong><span>{obj.value}</span></div>);
+        array.push(<div key={key} className={`indent-${indent}`}><strong>{obj.title} : </strong><span>{obj.value}</span></div>);
+        key++;
       } else {
         if(!array.length){
-          array.push(<h4 className="center">{obj.title}</h4>);
+          array.push(<h4 key={key} className="center">{obj.title}</h4>);
+          key++;
         } else {
-          array.push(<div className={`indent-${indent}`}><strong>{obj.title}: </strong></div>);
+          array.push(<div key={key} className={`indent-${indent}`}><strong>{obj.title} : </strong></div>);
+          key++;
         }          
         Object.values(obj).forEach(prop => {
           if(typeof prop === 'string') return;
-          dig(prop, indent+1);
+          recursion(prop, indent+1);
         })
       }
     }
 
-    dig(init, 0);
+    recursion(init, 0);
     return array;  
   }
   const closeClick = e => {

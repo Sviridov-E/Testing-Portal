@@ -6,64 +6,7 @@ import { Loader } from './Loader';
 
 export const PassingTest = ({ id, name, quantity, returnToTestList }) => {
   const [ questions, setQuestions ] = useState([]),
-        [ answers, setAnswers ] = useState([
-          0,
-          1,
-          1,
-          1,
-          0,
-          0,
-          0,
-          1,
-          0,
-          0,
-          0,
-          1,
-          1,
-          0,
-          0,
-          0,
-          1,
-          0,
-          0,
-          0,
-          0,
-          0,
-          1,
-          0,
-          0,
-          0,
-          1,
-          0,
-          0,
-          0,
-          1,
-          0,
-          0,
-          0,
-          0,
-          1,
-          1,
-          0,
-          1,
-          0,
-          0,
-          0,
-          1,
-          1,
-          0,
-          1,
-          0,
-          0,
-          1,
-          0,
-          0,
-          0,
-          1,
-          1,
-          0,
-          0
-        ]),
+        [ answers, setAnswers ] = useState([0,1,1,1,0,0,0,1,0,0,0,1,1,0,0,0,1,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,1,1,0,1,0,0,0,1,1,0,1,0,0,1,0,0,0,1,1,0,0]),
         [ questionId, setQuestionId ] = useState(56),
         [ testFinished, setTestFinished ] = useState(false),
         [ savingResult, setSavingResult] = useState(false);
@@ -91,21 +34,22 @@ export const PassingTest = ({ id, name, quantity, returnToTestList }) => {
   }
 
   const finishTest = () => {
-    setSavingResult(true);
     try {
       setAnswers(async answers => {
-        console.log(answers.length, answers[56]);
-      
+        if(answers.length !== quantity) {
+          throw new Error('Не хватает ответов');
+        }
+        setSavingResult(true);
         await request(`/api/tests/passing/${id}`, 'POST', {answers}, {
           Authorization: `Bearer ${token}`
         });
+        setSavingResult(false);
+        setTestFinished(true);
         return [];
       })      
     } catch(e) {
       console.log('Ошибка при сохранении результата: ', e.message);      
     }
-    setSavingResult(false);
-    setTestFinished(true);
   }
 
   const answerTheQuestion = answer => {
