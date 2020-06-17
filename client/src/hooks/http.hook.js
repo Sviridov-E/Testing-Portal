@@ -16,7 +16,16 @@ export const useHttp = () => {
         body,
         headers
       });
-      const data = await response.json();
+      let data = await response.json();
+      const status = response.status;
+      Object.defineProperty(data, 'status', {
+        value: status,
+        writable: false,
+        enumerable: false,
+        configurable: false
+      });
+            
+
       if(!response.ok){
         throw new Error(data.message || 'Что-то пошло не так');
       }

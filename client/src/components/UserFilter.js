@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-export const UserFilter = ({ requestParams, setRequestParams, params }) => {
+export const UserFilter = ({ requestParams, setRequestParams, params, whereSearchButtonClick = () => {} }) => {
   const history = useHistory();
   
   useEffect(() => {
@@ -14,6 +14,7 @@ export const UserFilter = ({ requestParams, setRequestParams, params }) => {
   }
   const handleButtonClick = (e) => {
     e.preventDefault();
+    whereSearchButtonClick();
     let url = new URL(window.location.href)
     Object.entries(requestParams).forEach(([key, value]) => {
       if(!value){

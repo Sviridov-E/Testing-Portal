@@ -127,8 +127,17 @@ module.exports = answers => {
     personalityType: {
       title: 'Тип темперамента',
       value: countPersonalityType(),
+    },
+    get fieldsInArray(){
+      return [
+        `${this.scales.extraversion.points.value} (${this.scales.extraversion.grade.value})`,
+        `${this.scales.neuroticism.points.value} (${this.scales.neuroticism.grade.value})`,
+        `${this.scales.falsehood.points.value} (${this.scales.falsehood.grade.value})`,
+        this.personalityType.value
+      ]
     }
   }
+
 
   return result;
 }
