@@ -22,7 +22,7 @@ export const TestResult = () => {
   const queryString = location.search;
   const testId = location.pathname.slice(-24);
 
-  const {request, loading, error} = useHttp();
+  const {request, loading} = useHttp();
 
   const {token} = useContext(AuthContext);
 

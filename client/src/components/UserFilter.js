@@ -69,9 +69,12 @@ export const UserFilter = ({ requestParams, setRequestParams, params, whereSearc
     )
   }
   if(params){
-    content = Object.entries(content).map(([key, value]) => {
-      if(params.includes(key) || key === 'button') return value;
-    });
+    content = Object.entries(content)
+      .map(([key, value]) => {
+        if(params.includes(key) || key === 'button') return value;
+        return null;
+      })
+      .filter(value => value);
   } else {
     content = Object.values(content);
   }

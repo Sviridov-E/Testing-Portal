@@ -6,14 +6,14 @@ import { Loader } from './Loader';
 
 export const PassingTest = ({ id, name, quantity, returnToTestList }) => {
   const [ questions, setQuestions ] = useState([]),
-        [ answers, setAnswers ] = useState([0,1,1,1,0,0,0,1,0,0,0,1,1,0,0,0,1,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,1,1,0,1,0,0,0,1,1,0,1,0,0,1,0,0,0,1,1,0,0]),
-        [ questionId, setQuestionId ] = useState(56),
+        [ , setAnswers ] = useState([]),
+        [ questionId, setQuestionId ] = useState(0),
         [ testFinished, setTestFinished ] = useState(false),
         [ savingResult, setSavingResult] = useState(false);
 
-  const { request, loading } = useHttp();
+  const { request } = useHttp();
 
-  const { token, isAuthorizated } = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
 
   const fetchedQuestions = useCallback(async () => {
     try {

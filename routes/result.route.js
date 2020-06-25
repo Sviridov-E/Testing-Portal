@@ -57,12 +57,6 @@ router.get('/test/:testId/:userId', auth, adminCheck, async (req, res) => {
   }
 } )
 router.get('/table/:testId', auth, adminCheck, async (req, res) => {
-  /*
-  1. Делаем запрос к документу Result, c ID нужного теста и достаем от туда поле users, и какие поля для таблицы нужны;
-  2. Формируем массив с айдишниками users;
-  3. Делаем запрос к документу Users, запрашиваем документы с айдишниками и строкой query;
-  4. Отправляем клиенту имя, фамилию, класс, пол, и столбцы результатов
-  */
   try {
     const query = req.query;
     const testId = req.params.testId;

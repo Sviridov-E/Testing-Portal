@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback, useEffect } from "react"
+import { useState, useRef, useCallback, useEffect } from "react"
 import { useHttp } from "./http.hook";
 
 export const useModalResult = (token, userId) => {
@@ -20,7 +20,7 @@ export const useModalResult = (token, userId) => {
 
     setContent(result);
 
-  }, [testId, request, token, setContent]);
+  }, [testId, request, token, setContent, userId]);
 
   const initialize = useCallback(() => {
     const instance = window.M.Modal.init(modal.current);    
@@ -39,12 +39,6 @@ export const useModalResult = (token, userId) => {
     setTestId(null);
     instance.close();
   }
-  
-  /*const content = {
-    name: fetched.name,
-    description: fetched.description,
-    result: fetched.result
-  }*/
 
   useEffect(()=>{
     fetched();

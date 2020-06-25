@@ -6,7 +6,6 @@ import { UserPage } from './pages/user/UserPage';
 import { AllTests } from './pages/AllTests';
 import { Result } from './pages/admin/Result';
 import { Test } from './pages/user/Test';
-import { UserResult } from './pages/admin/UserResult';
 import { Users } from './pages/admin/Users';
 import { TestResult } from './pages/admin/TestResult';
 
@@ -30,10 +29,6 @@ export const useRoutes = (isAuthenticated, isAdmin) => {
         <Route path="/tests/result/:id">
           <TestResult/>
         </Route>
-        <Route path="/result/:id">
-          <UserResult/>
-        </Route>
-
         <Redirect to="/users"/>
       </Switch>
     );
@@ -66,7 +61,7 @@ export const useRoutes = (isAuthenticated, isAdmin) => {
       <Route path="/login" exact>
         <LoginPage/>
       </Route>
-      <Redirect to="/register"/>
+      <Redirect to="/login"/>
     </Switch>
   );
 }

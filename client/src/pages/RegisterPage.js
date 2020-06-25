@@ -2,11 +2,14 @@ import React, { useRef, useEffect, useState } from 'react';
 import '../styles/registerPage.scss'
 import { useHttp } from '../hooks/http.hook';
 import { Loader } from '../components/Loader';
+import { useHistory} from 'react-router-dom';
 
 export const RegisterPage = () => {
   const birthdateRef = useRef(null);
   const gradeNumberRef = useRef(null);
   const gradeLetterRef = useRef(null);
+
+  const history = useHistory();
 
 
   const { request, loading, error, clearError} = useHttp();
@@ -32,7 +35,7 @@ export const RegisterPage = () => {
   }, [error, clearError]);
 
   const fieldsNotEmpty = obj => {
-    for (let [key, value] of Object.entries(obj)){
+    for (let value of Object.values(obj)){
       if(!value) return false;
     }
     return true;
@@ -51,7 +54,9 @@ export const RegisterPage = () => {
     if(state)
     try {
       const data = await request('/api/auth/register', 'POST', state);
-      
+      if(data) {
+        history.push('/login');
+      }
     } catch (e) {
       window.M.toast({html: `Ошибка регистрации: ${e.message}`})
     }

@@ -43,7 +43,7 @@ export const UserPage = () => {
       console.log(e.message);
       
     }
-  }, [token, request]);
+  }, [token, request, isAdmin, userId]);
 
   const getFullYears = arg => {
     if(!arg) return;
