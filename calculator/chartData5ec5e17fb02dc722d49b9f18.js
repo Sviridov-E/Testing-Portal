@@ -84,6 +84,6 @@ module.exports = async () => {
     if(!ind) return;
     result[ind].fields = getArrayFromMap(item.fields);
   })
-  console.log(result[1].fields);
+
   return result;
 }
