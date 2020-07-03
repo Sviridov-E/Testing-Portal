@@ -12,14 +12,18 @@ export const AllTests = () => {
   const { token, isAdmin } = useContext(AuthContext);
 
   const fetchedTests = useCallback(async () => {
-    const list = await request('/api/tests', 'GET', null, {
-      Authorization: `Bearer ${token}`
-    })
-    setTestsList(list);
+    try {
+      const list = await request('/api/tests', 'GET', null, {
+        Authorization: `Bearer ${token}`
+      })      
+      setTestsList(list);
+    } catch (e) {
+      console.log(e);      
+    }
   }, [token, request])
 
   useEffect(() => {
-    fetchedTests();
+    fetchedTests();    
   }, [fetchedTests])
 
   const handleClick = e => {

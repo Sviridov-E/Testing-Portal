@@ -24,7 +24,7 @@ export const UserPage = () => {
   const { token, isAuthenticated, isAdmin } = useContext(AuthContext);
 
   let location = useLocation();
-  let userId;
+  let userId = '';
   if(isAdmin) userId = location.pathname.slice(-24);
   else location = null;
 
@@ -33,7 +33,7 @@ export const UserPage = () => {
   const fetchedData = useCallback( async () => {
     // Информация о пользователе
     try {
-      const data = await request(`/api/users/profile${isAdmin ? '/'+ userId : ''}`, 'GET', null, {
+      const data = await request(`/api/users/profile/${userId}`, 'GET', null, {
         Authorization: `Bearer ${token}`
       });
       const birthdate = new Date(data.birthdate)
@@ -43,7 +43,7 @@ export const UserPage = () => {
       console.log(e.message);
       
     }
-  }, [token, request, isAdmin, userId]);
+  }, [token, request, userId]);
 
   const getFullYears = arg => {
     if(!arg) return;

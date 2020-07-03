@@ -10,6 +10,7 @@ const router = Router();
 router.get('/', auth, async (req, res) => {
   try {
     const tests = await Test.find({}, {name: true, quantityOfQuestions: true});
+    
     res.json(tests);
     
   } catch (e) {
