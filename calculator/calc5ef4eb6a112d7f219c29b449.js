@@ -1,4 +1,5 @@
 // Анкета школьной мотивации Н.Г. Лускановой
+// 5ef4eb6a112d7f219c29b449
 
 module.exports = answers => {
   const A = 3, B = 1, C = 0;
