@@ -10,6 +10,9 @@
   }
   .chart {
     margin: 2rem;
+    .not-passed {
+      padding-left: 2rem;
+    }
     .cards {
       display: flex;
       flex-flow: row wrap;

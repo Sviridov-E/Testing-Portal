@@ -1,14 +1,16 @@
+// Анкета школьной мотивации Н.Г. Лускановой
+
 const Result = require('../models/Result');
 const User = require('../models/User');
 const config = require('config');
 
 module.exports = async () => {
     try {
-        const testId = config.testsId.accentuation;        
+        const testId = config.testsId.motivation;        
         
         const { users } = await Result.findOne({owner: testId}, 'users');        
         
-        if(!users.length) return null; // Ни один человек не сдал тест, результатов нет
+        if(!users.length) return []; // Ни один человек не сдал тест, результатов нет
 
         const totalUsers = await User.countDocuments();
 
