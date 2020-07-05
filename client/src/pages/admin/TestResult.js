@@ -31,7 +31,7 @@ export const TestResult = () => {
       const data = await request(`/api/result/table/${testId}${query}`, 'GET', null, {
         Authorization: `Bearer ${token}`
       })
-      
+      if(!data) return;
       setTableData({
         tableHead: [].concat(['Имя', 'Фамилия', 'Класс'], data.tableHead),
         profiles: data.profiles

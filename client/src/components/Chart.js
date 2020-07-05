@@ -19,7 +19,7 @@ export const Chart = ({ testId, testName }) => {
       const data = await request(`/api/chart/${testId}`, 'GET', null, {
         Authorization: `Bearer ${token}`
       });
-      
+      if(!data) return;
       setChart(data);
     } catch(e) {
       console.log(`error: ${e.message}`);

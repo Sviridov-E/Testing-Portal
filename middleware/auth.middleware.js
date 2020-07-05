@@ -12,11 +12,19 @@ module.exports = (req, res, next) => {
       return res.json({message: 'Защищенный раздел, вы не авторизованы'});
     }
 
-    const decoded = jwt.verify(token, config.get('secret'));
+    const decoded = jwt.verify(token, config.get('accessSecret'));    
+    
     req.isAdmin = decoded.isAdmin;
     req.userId = decoded.userId;
     next();
   } catch (e) {
-    res.status(401).json({message: 'Ошибка при верификации токена', addition: e.message});
+    if(e.message === 'jwt expired') {
+      
+      return res.json({tokenExpired: true})
+
+    }
+    console.log(e.message);
+
+    res.status(401).json({message: 'Ошибка при верификации токена'});
   }
 }

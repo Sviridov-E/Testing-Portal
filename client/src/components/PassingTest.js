@@ -21,6 +21,7 @@ export const PassingTest = ({ id, name, quantity, returnToTestList }) => {
       const questions = await request(`/api/tests/passing/${id}`, 'GET', null, {
         Authorization: `Bearer ${token}`
       });
+      if(!questions) return;
       // returns an array of questions with name, answers and id
 
       setQuestions(questions);

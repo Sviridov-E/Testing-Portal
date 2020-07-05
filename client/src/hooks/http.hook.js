@@ -1,8 +1,11 @@
 import { useState, useCallback } from "react"
+import { useRefresh } from "./refresh.hook";
 
 export const useHttp = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const refresh = useRefresh();
 
   const request = useCallback(async (url, method = 'GET', body = null, headers = {}) => {
     setLoading(true);
@@ -17,6 +20,10 @@ export const useHttp = () => {
         headers
       });
       let data = await response.json();
+      if(data.tokenExpired){
+        await refresh();
+        return;
+      }
       const status = response.status;
       Object.defineProperty(data, 'status', {
         value: status,
@@ -36,6 +43,7 @@ export const useHttp = () => {
       setError(e.message);
       throw e;
     }
+    // eslint-disable-next-line
   }, []);
   const clearError = useCallback(()=>{
     setError(null);

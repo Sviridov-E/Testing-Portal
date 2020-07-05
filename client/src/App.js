@@ -9,9 +9,9 @@ import { Loader } from './components/Loader';
 
 
 function App() {
-  const { userId, token, isAdmin, login, logout, ready } = useAuth();
+  const { userId, accessToken, refreshToken, isAdmin, login, logout, ready } = useAuth();
 
-  const isAuthenticated = !!token;
+  const isAuthenticated = !!accessToken;
 
   const routes = useRoutes(isAuthenticated, isAdmin);
 
@@ -20,7 +20,7 @@ function App() {
   }
 
   return (
-    <AuthContext.Provider value={{ userId, token, login, logout, isAuthenticated, isAdmin }}>
+    <AuthContext.Provider value={{ userId, token: accessToken, refreshToken, login, logout, isAuthenticated, isAdmin }}>
       <BrowserRouter>
         <div className="app">
           <NavBar isAuthenticated={isAuthenticated}></NavBar>

@@ -25,7 +25,7 @@ export const Test = () => {
       const data = await request(`/api/tests/${params.id}`, 'GET', null, {
         Authorization: `Bearer ${token}`
       });
-      console.log(data);
+      if(!data) return;
       
       // return {name, description, quantityOfQuestions}
       setData({name: data.name, description: data.description, quantityOfQuestions: data.quantityOfQuestions});

@@ -25,6 +25,7 @@ export const Users = () => {
       const users = await request(`/api/users${query}`, 'GET', null, {
         Authorization: `Bearer ${token}`
       });      
+      if(!users) return;
       setUsersList(users);
     } catch (e) {
       console.log(e.message);      

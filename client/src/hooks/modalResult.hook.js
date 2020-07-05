@@ -16,6 +16,7 @@ export const useModalResult = (token, userId) => {
     const result = await request(`/api/result/test/${testId}${userId ? '/'+userId : ''}`, 'GET', null, {
       Authorization: `Bearer ${token}`
     });
+    if(!result) return;
     // data take value {}
 
     setContent(result);

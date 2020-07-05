@@ -73,7 +73,8 @@ router.post('/login', [
       })
     }
     
-    const { email, password } = req.body; 
+    const { email, password } = req.body;
+    
     
     const user = await User.findOne({email});
 
@@ -91,17 +92,27 @@ router.post('/login', [
         message: 'Неверный пароль'
       })
     }    
-    const token = jwt.sign(
+    const accessToken = jwt.sign(
       {
         userId: user.id,
         isAdmin: user.isAdmin
       },
-      config.get('secret'),
+      config.get('accessSecret'),
       {
-        expiresIn: '10h'
+        expiresIn: '6h'
       }
     );
-    res.json({userId: user.id, isAdmin: user.isAdmin, token});
+    const refreshToken = jwt.sign(
+      {
+        userId: user.id,
+        isAdmin: user.isAdmin
+      },
+      config.get('refreshSecret'),
+      {
+        expiresIn: '14 days'
+      }
+    );
+    res.json({userId: user.id, isAdmin: user.isAdmin, accessToken, refreshToken});
 
   } catch (e) {
     console.error('Registration error: ', e.message);

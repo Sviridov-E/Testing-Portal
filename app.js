@@ -10,6 +10,7 @@ app.use('/api/users', require('./routes/users.route'));
 app.use('/api/tests', require('./routes/tests.route'));
 app.use('/api/result', require('./routes/result.route'));
 app.use('/api/chart', require('./routes/chart.route'));
+app.use('/api/refresh-token', require('./routes/refreshToken.route'));
 
 const PORT = config.get('port') || 5000;
 

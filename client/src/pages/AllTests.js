@@ -16,6 +16,8 @@ export const AllTests = () => {
       const list = await request('/api/tests', 'GET', null, {
         Authorization: `Bearer ${token}`
       })      
+      if(!list) return;
+      
       setTestsList(list);
     } catch (e) {
       console.log(e);      

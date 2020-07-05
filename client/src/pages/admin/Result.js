@@ -22,6 +22,7 @@ export const Result = () => {
       const tests = await request(`/api/tests`, 'GET', null, {
         Authorization: `Bearer ${token}`
       });
+      if(!tests) return;
       setTestsList(tests);
     } catch(e) {}
   }, [request, setTestsList, token]);
@@ -43,7 +44,7 @@ export const Result = () => {
     const name = testsList[event.target.value].name;
     setTest({id, name});
   }
-
+  if(!testsList) return <></>;
   const selector = loading ? (
     <select onChange={handleSelect} ref={selectorRef}>
       <option value="">Общая информация</option>

@@ -36,6 +36,7 @@ export const UserPage = () => {
       const data = await request(`/api/users/profile/${userId}`, 'GET', null, {
         Authorization: `Bearer ${token}`
       });
+      if(!data) return;
       const birthdate = new Date(data.birthdate)
       
       setState({...data, birthdate: birthdate});
