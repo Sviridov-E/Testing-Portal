@@ -49,7 +49,9 @@ export const Chart = ({ testId, testName }) => {
             return (
               <ChartCard
                 key={ind}
-                data={item}
+                name={item && item.name}
+                type={item && item.type}
+                data={item.fields}
               />
             );
           })

@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
             },
             config.get('accessSecret'),
             {
-                expiresIn: 3
+                expiresIn: '6h'
             }
         );
         const refreshToken = jwt.sign(

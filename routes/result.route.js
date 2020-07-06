@@ -38,19 +38,16 @@ router.get('/test/:testId/:userId', auth, adminCheck, async (req, res) => {
     const userId = req.params.userId,
           testId = req.params.testId;
 
-    const { users, name } = await Result.findOne({owner: testId}, 'users name');
+    const { users, name, userResultType } = await Result.findOne({owner: testId}, 'users name userResultType');
 
     const user = users.find(item => {
       if (item.owner == userId) return true;
       else return false;
     });
     const result = user.result;
-    const userName = user.name;
-    console.log(`id`, userId);
-    console.log('name', userName);
+    const userName = user.name;    
     
-    
-    res.json({...result, title: name, id: userId, userName: userName});
+    res.json({...result, title: name, id: userId, userName: userName, userResultType});
 
   } catch(e) {
     res.status(500).json({message: e.message});    

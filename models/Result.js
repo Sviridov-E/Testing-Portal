@@ -11,6 +11,7 @@ const resultSchema = new Schema({
   owner: {type: Types.ObjectId, required: true}, //id теста
   name: {type: String, default: 'Test Name'}, // имя теста
   tableHead: {type: Array}, // массив имен столбцов для таблицы результатов
+  userResultType: {type: String, default: null}, // тип представления результатов теста на странице пользователя
   users: [userSchema] // массив с результатами пользователей
 })
 

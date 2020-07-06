@@ -6,7 +6,7 @@ import { Loader } from '../../components/Loader';
 import '../../styles/userPage.scss';
 import genderMale from '../../icons/male.svg';
 import genderFemale from '../../icons/female.svg';
-import { ResultModalWindow } from '../../components/ResultModalWindow';
+import { ResultModalWindow } from '../../components/ResultModalWindow/ResultModalWindow';
 import { useModalResult } from '../../hooks/modalResult.hook';
 import { useLocation } from 'react-router-dom';
  
@@ -119,6 +119,7 @@ export const UserPage = () => {
           content={modal.content}
           loading={modal.loading}
           closeWindow={modal.closeWindow}
+          type={(modal.content && modal.content.userResultType) || 'basic'}
         />
       </div>   
     );

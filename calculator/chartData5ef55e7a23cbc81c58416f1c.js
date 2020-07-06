@@ -1,3 +1,7 @@
+// Опросник Леонгарда – Шмишека
+// 5ef55e7a23cbc81c58416f1c
+// 88 Вопросов
+
 const Result = require('../models/Result');
 const User = require('../models/User');
 const config = require('config');
