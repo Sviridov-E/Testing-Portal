@@ -3,6 +3,8 @@ import { useHttp } from '../hooks/http.hook';
 import { AuthContext } from '../context/AuthContext';
 import { Loader } from '../components/Loader';
 import { useHistory } from 'react-router-dom';
+import '../styles/allTests.scss';
+
 
 export const AllTests = () => {
   const [testsList, setTestsList] = useState([]);
@@ -39,7 +41,7 @@ export const AllTests = () => {
   }
 
   return (
-    <div className="container tests-table">     
+    <div className="container tests-table all-tests">     
       <table className="highlight">
         <thead>
           <tr>
@@ -51,7 +53,7 @@ export const AllTests = () => {
         <tbody>
           {
             testsList.map(test => (
-              <tr data-id={test._id} key={test._id} onClick={handleClick}>
+              <tr className="row" data-id={test._id} key={test._id} onClick={handleClick}>
                 <td>{test.name}</td>
                 <td>{test.quantityOfQuestions}</td>
               </tr>

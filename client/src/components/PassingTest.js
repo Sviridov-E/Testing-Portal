@@ -6,8 +6,8 @@ import { Loader } from './Loader';
 
 export const PassingTest = ({ id, name, quantity, returnToTestList }) => {
   const [ questions, setQuestions ] = useState([]),
-        [ , setAnswers ] = useState([0 ,1 ,0 ,1 ,0 ,0 ,0 ,1 ,0 ,0 ,1 ,1 ,1 ,1 ,1 ,0 ,1 ,1 ,1 ,1 ,1 ,0 ,1 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,1 ,0 ,1 ,0 ,1 ,1 ,0 ,1 ,1 ,1 ,0 ,0 ,0 ,0 ,1 ,0 ,0 ,0 ,0 ,0 ,0 ,1 ,0 ,0 ,1 ,1 ,1 ,1 ,0 ,0 ,0 ,0 ,0 ,1 ,1 ,0 ,1 ,1 ,1 ,1 ,0 ,1 ,1 ,0 ,0 ,0 ,0 ,1 ,0 ,0 ,1 ,0 ,0 ,0 ,1 ,1 ,1]),
-        [ questionId, setQuestionId ] = useState(87),
+        [ , setAnswers ] = useState([]),
+        [ questionId, setQuestionId ] = useState(0),
         [ testFinished, setTestFinished ] = useState(false),
         [ savingResult, setSavingResult] = useState(false);
 

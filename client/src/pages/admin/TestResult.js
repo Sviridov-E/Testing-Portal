@@ -32,9 +32,21 @@ export const TestResult = () => {
         Authorization: `Bearer ${token}`
       })
       if(!data) return;
+      const profiles = data.profiles.map(profile => {
+        return {
+          _id: profile._id,
+          values: [
+            profile.firstName,
+            profile.lastName,
+            `${profile.gradeNumber} ${profile.gradeLetter}`,
+            ...profile.result
+          ]
+        }
+      });
+
       setTableData({
         tableHead: [].concat(['Имя', 'Фамилия', 'Класс'], data.tableHead),
-        profiles: data.profiles
+        profiles: profiles
       });
     } catch (e) {
       console.log(e.message);     
@@ -49,6 +61,7 @@ export const TestResult = () => {
   let data = requestHasBeenSent ?
     <ResultTable
       tableData={tableData}
+      setTableData={setTableData}
       loading={loading}
     /> :
     <Refresh

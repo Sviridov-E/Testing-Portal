@@ -3,7 +3,6 @@
 // 88 Вопросов
 
 const Result = require('../models/Result');
-const User = require('../models/User');
 const config = require('config');
 
 function getGradeIndex(val) {
@@ -19,8 +18,6 @@ module.exports = async () => {
     const { users } = await Result.findOne({owner: testId}, 'users');
 
     if(!users.length) return null;
-
-    const totalUsers = await User.countDocuments();
     const scales = ['Гипертимность', 'Ригидность', 'Эмотивность', 'Педантичность', 'Тревожность', 'Циклотимичность', 'Демонстративность', 'Возбудимость', 'Дистимичность', 'Аффективность'];
     const result = scales.map(name => ({
         name,

@@ -9,7 +9,7 @@ router.get('/', auth, adminCheck, async (req, res) => {
   try {
     const params = req.query;
     
-    const users = await User.find(params);
+    const users = await User.find(params, 'firstName lastName gender gradeLetter gradeNumber email');
     res.json(users);
   } catch (e) {
     res.status(500).json({message: e.message});

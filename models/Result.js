@@ -12,6 +12,7 @@ const resultSchema = new Schema({
   name: {type: String, default: 'Test Name'}, // имя теста
   tableHead: {type: Array}, // массив имен столбцов для таблицы результатов
   userResultType: {type: String, default: null}, // тип представления результатов теста на странице пользователя
+  additionalInfo: {type: Object, default: null}, // Дополнительная информация к результатам теста 
   users: [userSchema] // массив с результатами пользователей
 })
 
