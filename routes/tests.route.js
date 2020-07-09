@@ -65,7 +65,7 @@ router.post('/passing/:id', auth, async (req, res) => {
 
     const calculator = require(`../calculator/calc${testId}`); // Функция высчитвает результат теста, и возвращает результат
     const calculated = calculator(req.body.answers);    
-
+    
     let result = await Result.findOne({owner:testId}, {users: true, name: true}); // Находим документ с результатами необходимого теста
     if(!result) {
       const { name } = await Test.findById(testId, 'name');

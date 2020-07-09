@@ -6,8 +6,8 @@ import { Loader } from './Loader';
 
 export const PassingTest = ({ id, name, quantity, returnToTestList }) => {
   const [ questions, setQuestions ] = useState([]),
-        [ , setAnswers ] = useState([]),
-        [ questionId, setQuestionId ] = useState(0),
+        [ , setAnswers ] = useState([4,2,0,4,1,4,3,1,2,2,4,4,3,3,4,3,2,1,2]),
+        [ questionId, setQuestionId ] = useState(19),
         [ testFinished, setTestFinished ] = useState(false),
         [ savingResult, setSavingResult] = useState(false);
 
