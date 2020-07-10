@@ -27,8 +27,8 @@ export const Test = () => {
       });
       if(!data) return;
       
-      // return {name, description, quantityOfQuestions}
-      setData({name: data.name, description: data.description, quantityOfQuestions: data.quantityOfQuestions});
+      // return {name, description, quantityOfQuestions, timeout}
+      setData({name: data.name, description: data.description, quantityOfQuestions: data.quantityOfQuestions, timeout: data.timeout});
       setTestIsAlreadyPassed(data.testIsAlreadyPassed);
     } catch (e) {
       console.log(e.message);      
@@ -61,6 +61,7 @@ export const Test = () => {
       id={params.id} 
       name={data.name} 
       quantity={data.quantityOfQuestions}
+      timeout={data.timeout}
       returnToTestList={returnToTestList}
     /> : 
     <TestDescription 

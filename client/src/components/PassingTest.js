@@ -3,11 +3,12 @@ import { useHttp } from '../hooks/http.hook';
 import { AuthContext } from '../context/AuthContext';
 import { Question } from './Question';
 import { Loader } from './Loader';
+import { Timer } from './Timer';
 
-export const PassingTest = ({ id, name, quantity, returnToTestList }) => {
+export const PassingTest = ({ id, name, quantity, returnToTestList, timeout }) => {
   const [ questions, setQuestions ] = useState([]),
-        [ , setAnswers ] = useState([4,2,0,4,1,4,3,1,2,2,4,4,3,3,4,3,2,1,2]),
-        [ questionId, setQuestionId ] = useState(19),
+        [ , setAnswers ] = useState([]),
+        [ questionId, setQuestionId ] = useState(0),
         [ testFinished, setTestFinished ] = useState(false),
         [ savingResult, setSavingResult] = useState(false);
 
@@ -37,13 +38,16 @@ export const PassingTest = ({ id, name, quantity, returnToTestList }) => {
   const finishTest = () => {
     try {
       setAnswers(async answers => {
+        let answersLeft = 0;
         if(answers.length !== quantity) {
-          throw new Error('Не хватает ответов');
+          answersLeft = quantity - answers.length;
         }
+        let data = answers.concat(new Array(answersLeft).fill(null));
         setSavingResult(true);
-        await request(`/api/tests/passing/${id}`, 'POST', {answers}, {
+        await request(`/api/tests/passing/${id}`, 'POST', {data}, {
           Authorization: `Bearer ${token}`
         });
+        
         setSavingResult(false);
         setTestFinished(true);
         return [];
@@ -100,6 +104,13 @@ export const PassingTest = ({ id, name, quantity, returnToTestList }) => {
               nextQuestion={nextQuestion}
               finishTest={finishTest}
               questionsLeft={quantity-questionId}         
+            />
+          }
+          {
+            timeout &&
+            <Timer
+              timeout={timeout}
+              finishTest={finishTest}
             />
           }
         </div>

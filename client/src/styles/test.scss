@@ -7,6 +7,9 @@
   p {
     text-indent: 2rem;
   }
+  .attention {
+    color: #e57373;
+  }
   .button {
     display: flex;
     flex-direction: column;
@@ -31,6 +34,14 @@
           background: #3d5afe;
           border: #536dfe;
         }
+      }
+    }
+  }
+  .timer {
+    .time {
+      text-align: right;
+      .little-time {
+        color: #e43535;
       }
     }
   }

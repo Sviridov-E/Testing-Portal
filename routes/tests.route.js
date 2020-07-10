@@ -22,13 +22,13 @@ router.get('/:id', auth, async (req, res) => {
   // Описание теста
   try {
     const testId = req.params.id;
-    const {name, description, quantityOfQuestions} = await Test.findById(testId, {name: true, description: true, quantityOfQuestions: true, _id: false});
+    const {name, description, quantityOfQuestions, timeForPassing} = await Test.findById(testId, {name: true, description: true, quantityOfQuestions: true, timeForPassing: true, _id: false});
    
     const { passedTests } = await User.findById(req.userId, {passedTests: true});
     
     const testIsAlreadyPassed = passedTests.findIndex(item => String(item.owner) === testId) !== -1 ? true : false;
         
-    res.json({name, description, quantityOfQuestions, testIsAlreadyPassed});
+    res.json({name, description, quantityOfQuestions, timeout: timeForPassing, testIsAlreadyPassed});
   } catch (e) {
     res.status(500).json({message: 'Ошибка при подключении к базе данных'});
   }

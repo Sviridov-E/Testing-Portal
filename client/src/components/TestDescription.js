@@ -1,5 +1,12 @@
 import React from 'react';
 
+const showTime = time => {
+  let min, sec;
+  sec = (time / 1000) % 60;
+  min = time > 60000 ? ((time / 1000) - sec) / 60 : 0;
+  return `${min < 10 ? '0'+min : min}:${sec < 10 ? '0'+sec : sec}`
+}
+
 export const TestDescription = ({ data, clickStart, testIsAlreadyPassed, returnToTestList }) => (
   <div className="test-description">
     <div className="row">
@@ -8,6 +15,12 @@ export const TestDescription = ({ data, clickStart, testIsAlreadyPassed, returnT
     <div className="row">
       <p className="col s4 offset-s4">{data.description}</p>
     </div>
+    {
+      data.timeout && (
+      <div className="row">
+        <h6 className="col s4 offset-s4"><strong><span className="attention">Внимание! </span>Сдача теста ограничена по времени: </strong>{showTime(data.timeout)}</h6>
+      </div>)
+    }
     <div className="row">
       <p className="col s4 offset-s4"><strong>Количество вопросов: </strong>{data.quantityOfQuestions}</p>
     </div>
