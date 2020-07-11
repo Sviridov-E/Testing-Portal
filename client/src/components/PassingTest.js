@@ -1,4 +1,4 @@
-import React, { useState, useContext, useCallback, useEffect } from 'react';
+import React, { useState, useContext, useCallback, useEffect, useRef } from 'react';
 import { useHttp } from '../hooks/http.hook';
 import { AuthContext } from '../context/AuthContext';
 import { Question } from './Question';
@@ -15,6 +15,8 @@ export const PassingTest = ({ id, name, quantity, returnToTestList, timeout }) =
   const { request } = useHttp();
 
   const { token } = useContext(AuthContext);
+
+  const startingTime = useRef(Date.now());
 
   const fetchedQuestions = useCallback(async () => {
     try {
@@ -39,12 +41,17 @@ export const PassingTest = ({ id, name, quantity, returnToTestList, timeout }) =
     try {
       setAnswers(async answers => {
         let answersLeft = 0;
+
         if(answers.length !== quantity) {
           answersLeft = quantity - answers.length;
         }
-        let data = answers.concat(new Array(answersLeft).fill(null));
+        
+        let data = answersLeft ? answers.concat(new Array(answersLeft).fill(null)) : answers;
+        const testingTime = Date.now()-startingTime.current;
         setSavingResult(true);
-        await request(`/api/tests/passing/${id}`, 'POST', {data}, {
+        console.log({data, testingTime});
+        
+        await request(`/api/tests/passing/${id}`, 'POST', {data, testingTime}, {
           Authorization: `Bearer ${token}`
         });
         

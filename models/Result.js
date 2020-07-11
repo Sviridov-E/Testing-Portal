@@ -4,7 +4,8 @@ const userSchema = new Schema({
   owner: {type: Types.ObjectId, require: true}, // id пользователя
   name: {type: String, default: 'User Name'}, // имя пользователя
   date: {type: Date, default: Date.new}, // дата прохождения
-  result: {type: Object, requre: true} // объект с результатом
+  result: {type: Object, requre: true}, // объект с результатом
+  testingTime: {type: Number, default: null} // время сдачи теста в мс
 })
 
 const resultSchema = new Schema({

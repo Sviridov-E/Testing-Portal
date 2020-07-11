@@ -62,9 +62,9 @@ router.post('/passing/:id', auth, async (req, res) => {
     if(testIsAlreadyPassed){
       return res.status(400).json({message: 'Данный тест уже пройден'});
     }
-
+    const {data: answers, testingTime} = req.body;
     const calculator = require(`../calculator/calc${testId}`); // Функция высчитвает результат теста, и возвращает результат
-    const calculated = calculator(req.body.answers);    
+    const calculated = calculator(answers);    
     
     let result = await Result.findOne({owner:testId}, {users: true, name: true}); // Находим документ с результатами необходимого теста
     if(!result) {
@@ -73,7 +73,7 @@ router.post('/passing/:id', auth, async (req, res) => {
     }
     const resultId = Types.ObjectId();
     const date = new Date();
-    result.users.push({_id: resultId, owner: req.userId, name: `${user.firstName} ${user.lastName}`, result: calculated, date: date}); // Добавляем результаты в документ
+    result.users.push({_id: resultId, owner: req.userId, name: `${user.firstName} ${user.lastName}`, result: calculated, date: date, testingTime}); // Добавляем результаты в документ
     await result.save();
 
     user.passedTests.push({owner: testId, result: resultId, name: result.name, date: date});
