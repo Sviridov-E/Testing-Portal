@@ -4,17 +4,22 @@ const { check, validationResult } = require('express-validator');
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const config = require('config');
+const { selectFields } = require('express-validator/src/select-fields');
 
 const router = Router();
 
 router.post(
   '/register',[
-    check('email', 'Некорректный адрес электронной почты').isEmail(),
-    check('password', 'Минимальная длина пароля - 6 символов').isLength({min: 6}),
-    check('firstName', 'Имя не введено').notEmpty(),
-    check('lastName', 'Фамилия не введена').notEmpty(),
-    check('gradeNumber', 'Номер класса не введен').notEmpty(),
-    check('gradeLetter', 'Буква класса не введена').notEmpty(),
+    check('email', 'Некорректный адрес электронной почты').isEmail().normalizeEmail(),
+    check('password', 'Минимальная длина пароля - 6 символов').isLength({min: 6}).trim(),
+    check('firstName', 'Имя не введено').notEmpty().trim().escape().customSanitizer(val => {
+      return val[0].toUpperCase() + val.slice(1).toLowerCase();
+    }),
+    check('lastName', 'Фамилия не введена').notEmpty().trim().escape().customSanitizer(val => {
+      return val[0].toUpperCase() + val.slice(1).toLowerCase();
+    }),
+    check('gradeNumber', 'Номер класса не введен').notEmpty().trim().escape(),
+    check('gradeLetter', 'Буква класса не введена').notEmpty().trim().escape(),
     check('gender', 'Не выбран пол').notEmpty()
   ], async (req, res) => {
     try {
@@ -26,7 +31,7 @@ router.post(
           message: 'Некорректные данные'
         })
       }
-
+      
       const { email, password, firstName, lastName, birthdate, gradeNumber, gradeLetter, gender } = req.body;
 
       const candidate = await User.findOne({email});
@@ -60,7 +65,7 @@ router.post(
     }
   });
 router.post('/login', [
-  check('email', 'Некорректный адрес электронной почты').isEmail(),
+  check('email', 'Некорректный адрес электронной почты').isEmail().normalizeEmail(),
   check('password', 'Пароль не введен').exists()
 ], async (req, res) => {
   try {        

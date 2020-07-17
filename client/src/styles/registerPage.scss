@@ -1,7 +1,11 @@
 .register-page {
   .register-container{
-
-    height: 80vh;
+    .reg-wrapper {
+      height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
     .modal {
       .datepicker-date-display {
         background: #536dfe;
@@ -47,5 +51,23 @@
     justify-content: flex-end;
     padding-right: 2rem;
     padding-bottom: 1rem;
+  }
+}
+@media(max-width: 700px) {
+  .register-page {
+    .register-container{
+      .reg-wrapper {
+        height: auto;
+      }
+    }
+  }
+}
+@media(max-height: 700px) {
+  .register-page {
+    .register-container{
+      .reg-wrapper {
+        height: auto;
+      }
+    }
   }
 }

@@ -1,0 +1,12 @@
+{
+    "port": 5000,
+    "mongoUri": "mongodb+srv://Sviridov_E:8kmh0gS7i2lLAdAN@cluster0-lraub.gcp.mongodb.net/test?retryWrites=true&w=majority",
+    "accessSecret": "3grFg4623fWre32f",
+    "refreshSecret": "gjn4i5gjdfQEgfe53",
+    "testsId": {
+        "motivation": "5ef4eb6a112d7f219c29b449",
+        "accentuation": "5ef55e7a23cbc81c58416f1c",
+        "diagnosisOfAnxiety": "5f06410a2c9ce392c862370c",
+        "difficultAnalogies": "5f070f52c15c2116a5033b80"
+    }
+}

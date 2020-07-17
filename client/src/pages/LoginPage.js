@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react'
 import { useHttp } from '../hooks/http.hook';
 import { AuthContext } from '../context/AuthContext';
 import { Loader } from '../components/Loader';
+import '../styles/loginPage.scss';
 
 export const LoginPage = () => {
 
@@ -39,27 +40,31 @@ export const LoginPage = () => {
   }
   return (
     <div className="container login-page">
-      <div className="row login-container valign-wrapper">
-        <div className="card-panel col s6 offset-s3 indigo accent-3 white-text">
-          <h4>Вход</h4>
-          <form onSubmit={handleSubmit}>
-            <div className="row">
-              <div className="user-input input-field col s12">
-                <input id="email" name="email" value={email} type="email" className="validate" onChange={handleChange}/>
-                <label htmlFor="email">Адрес электронной почты</label>
-                <span className="helper-text" data-error="Неверный формат" data-success=""></span>
-              </div>
+      <div className="row login-container">
+        <div className="col s12 m8 l6 offset-m2 offset-l3">
+          <div className="card-wrapper">
+            <div className="card-panel indigo accent-3 white-text">
+              <h4>Вход</h4>
+              <form onSubmit={handleSubmit}>
+                <div className="row">
+                  <div className="user-input input-field col s12">
+                    <input id="email" name="email" value={email} type="email" className="validate" onChange={handleChange}/>
+                    <label htmlFor="email">Адрес электронной почты</label>
+                    <span className="helper-text" data-error="Неверный формат" data-success=""></span>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="user-input input-field col s12">
+                    <input id="password" name="password" value={password} type="password" className="validate" onChange={handleChange}/>
+                    <label htmlFor="password">Пароль</label>
+                  </div>
+                </div>
+                <div className='buttons'>
+                  <button className="btn waves-effect waves-light indigo darken-2" type="submit" name="submit">Войти</button>
+                </div>
+              </form>
             </div>
-            <div className="row">
-              <div className="user-input input-field col s12">
-                <input id="password" name="password" value={password} type="password" className="validate" onChange={handleChange}/>
-                <label htmlFor="password">Пароль</label>
-              </div>
-            </div>
-            <div className='buttons'>
-              <button className="btn waves-effect waves-light indigo darken-2" type="submit" name="submit">Войти</button>
-            </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>

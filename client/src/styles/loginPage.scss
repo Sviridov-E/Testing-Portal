@@ -1,0 +1,16 @@
+.login-page {
+    .login-container {
+       .card-wrapper {
+           height: 80vh;
+           display: flex;
+           flex-direction: column;
+           justify-content: center;
+       }
+    }
+    .buttons {
+        text-align: right;
+        button {
+            margin-bottom: 10px;
+        }
+    }
+}
