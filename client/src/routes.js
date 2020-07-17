@@ -42,9 +42,6 @@ export const useRoutes = (isAuthenticated, isAdmin) => {
         <Route path="/tests" exact>
           <AllTests/>
         </Route>
-        <Route path="/result" exact>
-          <Result/>
-        </Route>
         <Route path="/tests/:id">
           <Test/>
         </Route>

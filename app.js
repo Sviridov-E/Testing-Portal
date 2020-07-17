@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const config = require('config');
+const path = require('path');
 
 const app = express();
 
@@ -12,7 +13,15 @@ app.use('/api/result', require('./routes/result.route'));
 app.use('/api/chart', require('./routes/chart.route'));
 app.use('/api/refresh-token', require('./routes/refreshToken.route'));
 
-const PORT = config.get('port') || 5000;
+if(process.env.NODE_ENV === 'production') {
+  app.use('/', express.static(path.join(__dirname, 'client', 'build')));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+  })
+}
+
+const PORT = process.env.PORT || config.get('port') || 5000;
 
 async function start(){
   try {

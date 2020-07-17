@@ -20,18 +20,15 @@ export const RegisterPage = () => {
     email: '',
     birthdate: '',
     password: '',
-    gradeNumber: '',
-    gradeLetter: '',
+    gradeNumber: '1',
+    gradeLetter: 'А',
     gender: ''
   });
 
   useEffect(()=>{
-    window.M.updateTextFields();
-  }, [])
-
-  useEffect(()=>{
     console.log('Ошибка при авторизации: ', error);    
     clearError();
+    window.M.updateTextFields();
   }, [error, clearError]);
 
   const fieldsNotEmpty = obj => {
@@ -86,97 +83,99 @@ export const RegisterPage = () => {
     window.M.Datepicker.init(birthdateRef.current, params);
     window.M.FormSelect.init(gradeNumberRef.current);
     window.M.FormSelect.init(gradeLetterRef.current);
-  }, []);
+  }, [error, clearError]);
   
   if(loading) {
     return <Loader size="big"/>
   }
   return (
     <div className="container register-page">
-      <div className="row register-container valign-wrapper">
-        <div className="card-panel col s6 offset-s3 indigo accent-3 white-text">
-          <h4>Регистрация</h4>
-          <form onSubmit={handleSubmit}>
-            <div className="row">
-              <div className="user-input input-field col m6 s12">
-                <input id="firstName" name="firstName" value={state.firstName} type="text" className="validate" onChange={handleChange}/>
-                <label htmlFor="firstName">Имя</label>
-              </div>
-              <div className="user-input input-field col m6 s12">
-                <input id="lastName" name="lastName" value={state.lastName} type="text" className="validate" onChange={handleChange}/>
-                <label htmlFor="lastName">Фамилия</label>
-              </div>
-            </div>
-            <div className="row">
-              <div className="user-input input-field col s7">
-                <input id="email" name="email" value={state.email} type="email" className="validate" onChange={handleChange}/>
-                <label htmlFor="email">Адрес электронной почты</label>
-                <span className="helper-text" data-error="Неверный формат" data-success=""></span>
-              </div>
-              <div className="gender user-input input-field col s5">
-                <fieldset onChange={handleChange}>
-                    <span className="title">Пол</span>
-                    <label>
-                      <input name='gender' type="radio" value="male"/>
-                      <span>М</span>
-                    </label>
-                    <label>
-                      <input name='gender' type="radio" value="female"/>
-                      <span>Ж</span>
-                    </label>
-                </fieldset>
-              </div>
-            </div>
-            <div className="row">
-              <div className="user-input input field col m6 s12">
-                <div className="black-text input-field birthdate">
-                  <input ref={birthdateRef} name="birthdate" value={state.birthdate.toLocaleDateString ? state.birthdate.toLocaleDateString() : ''} onChange={handleChange} type="text" className="datepicker"/>
-                  <label>Дата рождения</label>
+      <div className="row register-container">
+        <div className="col s12 m10 l6 offset-m1 offset-l3">
+          <div className="reg-wrapper">
+            <div className="card-panel indigo accent-3 white-text">
+              <h4>Регистрация</h4>
+              <form onSubmit={handleSubmit}>
+                <div className="row">
+                  <div className="user-input input-field col m6 s12">
+                    <input id="firstName" name="firstName" value={state.firstName} type="text" className="validate" onChange={handleChange}/>
+                    <label htmlFor="firstName">Имя</label>
+                  </div>
+                  <div className="user-input input-field col m6 s12">
+                    <input id="lastName" name="lastName" value={state.lastName} type="text" className="validate" onChange={handleChange}/>
+                    <label htmlFor="lastName">Фамилия</label>
+                  </div>
                 </div>
-              </div>
-              <div className="user-input input-field col m3 s12">
-                <select name="gradeNumber" ref={gradeNumberRef} onChange={handleChange}>
-                  <option disabled value=''>1</option>
-                  <option value={`1`}>{`1`}</option>
-                  <option value={`2`}>{`2`}</option>
-                  <option value={`3`}>{`3`}</option>
-                  <option value={`4`}>{`4`}</option>
-                  <option value={`5`}>{`5`}</option>
-                  <option value={`6`}>{`6`}</option>
-                  <option value={`7`}>{`7`}</option>
-                  <option value={`8`}>{`8`}</option>
-                  <option value={`9`}>{`9`}</option>
-                  <option value={`10`}>{`10`}</option>
-                  <option value={`11`}>{`11`}</option>
-                </select>
-                <label>Класс</label>
-              </div>
-              <div className="user-input input-field col m3 s12">
-                <select name="gradeLetter" ref={gradeLetterRef} onChange={handleChange}>
-                  <option disabled selected value=''>А</option>
-                  <option value={`А`}>{`А`}</option>
-                  <option value={`Б`}>{`Б`}</option>
-                  <option value={`В`}>{`В`}</option>
-                  <option value={`Г`}>{`Г`}</option>
-                  <option value={`Д`}>{`Д`}</option>
-                  <option value={`Е`}>{`Е`}</option>
-                  <option value={`Ж`}>{`Ж`}</option>
-                  <option value={`З`}>{`З`}</option>
-                  <option value={`И`}>{`И`}</option>
-                </select>
-                <label>Буква</label>
-              </div>
+                <div className="row">
+                  <div className="user-input input-field col s7">
+                    <input id="email" name="email" value={state.email} type="email" className="validate" onChange={handleChange}/>
+                    <label htmlFor="email">Адрес электронной почты</label>
+                    <span className="helper-text" data-error="Неверный формат" data-success=""></span>
+                  </div>
+                  <div className="gender user-input input-field col s5">
+                    <fieldset onChange={handleChange}>
+                        <span className="title">Пол</span>
+                        <label>
+                          <input name='gender' type="radio" value="male"/>
+                          <span>М</span>
+                        </label>
+                        <label>
+                          <input name='gender' type="radio" value="female"/>
+                          <span>Ж</span>
+                        </label>
+                    </fieldset>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="user-input input field col m6 s12">
+                    <div className="black-text input-field birthdate">
+                      <input ref={birthdateRef} name="birthdate" value={state.birthdate.toLocaleDateString ? state.birthdate.toLocaleDateString() : ''} onChange={handleChange} type="text" className="datepicker"/>
+                      <label>Дата рождения</label>
+                    </div>
+                  </div>
+                  <div className="user-input input-field col m3 s12">
+                    <select name="gradeNumber" ref={gradeNumberRef} onChange={handleChange}>
+                      <option value={`1`}>{`1`}</option>
+                      <option value={`2`}>{`2`}</option>
+                      <option value={`3`}>{`3`}</option>
+                      <option value={`4`}>{`4`}</option>
+                      <option value={`5`}>{`5`}</option>
+                      <option value={`6`}>{`6`}</option>
+                      <option value={`7`}>{`7`}</option>
+                      <option value={`8`}>{`8`}</option>
+                      <option value={`9`}>{`9`}</option>
+                      <option value={`10`}>{`10`}</option>
+                      <option value={`11`}>{`11`}</option>
+                    </select>
+                    <label>Класс</label>
+                  </div>
+                  <div className="user-input input-field col m3 s12">
+                    <select name="gradeLetter" ref={gradeLetterRef} onChange={handleChange}>
+                      <option value={`А`}>{`А`}</option>
+                      <option value={`Б`}>{`Б`}</option>
+                      <option value={`В`}>{`В`}</option>
+                      <option value={`Г`}>{`Г`}</option>
+                      <option value={`Д`}>{`Д`}</option>
+                      <option value={`Е`}>{`Е`}</option>
+                      <option value={`Ж`}>{`Ж`}</option>
+                      <option value={`З`}>{`З`}</option>
+                      <option value={`И`}>{`И`}</option>
+                    </select>
+                    <label>Буква</label>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="user-input input-field col s12">
+                    <input id="password" name="password" value={state.password} type="password" className="validate" onChange={handleChange}/>
+                    <label htmlFor="password">Пароль</label>
+                  </div>
+                </div>
+                <div className='buttons'>
+                  <button className="btn waves-effect waves-light indigo darken-2" type="submit" name="submit">Зарегистрироваться</button>
+                </div>
+              </form>
             </div>
-            <div className="row">
-              <div className="user-input input-field col s12">
-                <input id="password" name="password" value={state.password} type="password" className="validate" onChange={handleChange}/>
-                <label htmlFor="password">Пароль</label>
-              </div>
-            </div>
-            <div className='buttons'>
-              <button className="btn waves-effect waves-light indigo darken-2" type="submit" name="submit">Зарегистрироваться</button>
-            </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>
