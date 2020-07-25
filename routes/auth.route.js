@@ -56,7 +56,7 @@ router.post(
           hash: req.confirmHash
         })
         await confirm.save();
-        await sendConfirmLink('sviridoveg@mail.ru', `${req.protocol}://${req.get('host')}/confirm/${req.confirmHash}`);
+        await sendConfirmLink(email, `${req.protocol}://${req.get('host')}/confirm/${req.confirmHash}`);
       }
 
       const user = new User({
