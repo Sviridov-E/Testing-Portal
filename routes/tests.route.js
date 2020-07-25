@@ -1,5 +1,4 @@
 const { Router } = require('express');
-const auth = require('../middleware/auth.middleware');
 const Test = require('../models/Test');
 const User = require('../models/User');
 const Result = require('../models/Result');
@@ -7,7 +6,7 @@ const { Types } = require('mongoose');
 
 const router = Router();
 
-router.get('/', auth, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const tests = await Test.find({}, {name: true, quantityOfQuestions: true});
     
@@ -18,7 +17,7 @@ router.get('/', auth, async (req, res) => {
   }
 
 })
-router.get('/:id', auth, async (req, res) => {
+router.get('/:id', async (req, res) => {
   // Описание теста
   try {
     const testId = req.params.id;
@@ -34,7 +33,7 @@ router.get('/:id', auth, async (req, res) => {
   }
 })
 
-router.get('/passing/:id', auth, async (req, res) => {
+router.get('/passing/:id', async (req, res) => {
   // Вопросы теста
   try {
     const testId = req.params.id;
@@ -51,7 +50,7 @@ router.get('/passing/:id', auth, async (req, res) => {
   }
 })
 
-router.post('/passing/:id', auth, async (req, res) => {
+router.post('/passing/:id', async (req, res) => {
   // Сохранение результатов теста
   try {
     const testId = req.params.id;

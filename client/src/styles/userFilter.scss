@@ -1,0 +1,28 @@
+.user-filter {
+    .card-panel {
+      display: flex;
+      justify-content: space-between;
+    }
+    .class-number {
+      input {
+        width: 40px;
+      }
+    }
+    .class-letter {
+      input {
+        width: 40px;
+      }
+    }
+    .search-button {
+      align-self: center;
+      a {
+        i {
+          padding-right: .5rem;
+        }
+        div {
+          display: flex;
+          align-items: center;
+        }
+      }
+    }
+  }

@@ -1,11 +1,10 @@
 const { Router } = require('express');
 const User = require('../models/User')
-const auth = require('../middleware/auth.middleware');
 const adminCheck = require('../middleware/adminCheck.middleware');
 
 const router = Router();
 
-router.get('/', auth, adminCheck, async (req, res) => {
+router.get('/', adminCheck, async (req, res) => {
   try {
     const params = req.query;
     
@@ -16,7 +15,7 @@ router.get('/', auth, adminCheck, async (req, res) => {
   }
 });
 
-router.get('/profile', auth, async (req, res) => {
+router.get('/profile', async (req, res) => {
   try {
     const id = req.userId;
 
@@ -52,7 +51,7 @@ router.get('/profile', auth, async (req, res) => {
     res.status(500).json({message: e.message});
   }
 })
-router.get('/profile/:id', auth, adminCheck, async (req, res) => {
+router.get('/profile/:id', adminCheck, async (req, res) => {
   try {
     const id = req.params.id;
 

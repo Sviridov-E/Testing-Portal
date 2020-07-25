@@ -2,9 +2,11 @@ const { Router } = require('express');
 const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
 const User = require('../models/User');
+const Confirm = require('../models/Confirm');
 const bcrypt = require('bcrypt');
 const config = require('config');
-const { selectFields } = require('express-validator/src/select-fields');
+const emailConfirmMiddleware = require('../middleware/emailConfirm.middleware');
+const sendConfirmLink = require('../handlers/sendConfirmLink');
 
 const router = Router();
 
@@ -21,7 +23,11 @@ router.post(
     check('gradeNumber', 'Номер класса не введен').notEmpty().trim().escape(),
     check('gradeLetter', 'Буква класса не введена').notEmpty().trim().escape(),
     check('gender', 'Не выбран пол').notEmpty()
-  ], async (req, res) => {
+  ],
+
+  emailConfirmMiddleware,
+
+  async (req, res) => {
     try {
       const errors = validationResult(req);
       if(!errors.isEmpty()){
@@ -43,6 +49,16 @@ router.post(
       
       const hashedPassword = await bcrypt.hash(password, 10);
 
+      const active = req.confirmHash ? false : true;
+      if(!active) {
+        const confirm = new Confirm({
+          email,
+          hash: req.confirmHash
+        })
+        await confirm.save();
+        await sendConfirmLink('sviridoveg@mail.ru', `${req.protocol}://${req.get('host')}/confirm/${req.confirmHash}`);
+      }
+
       const user = new User({
         firstName,
         lastName,
@@ -50,6 +66,7 @@ router.post(
         gradeNumber,
         gradeLetter,
         gender,
+        active,
         email: email.toLowerCase(),        
         password: hashedPassword,
       })
@@ -64,6 +81,9 @@ router.post(
       console.error('Registration error: ', e.message);
     }
   });
+
+
+
 router.post('/login', [
   check('email', 'Некорректный адрес электронной почты').isEmail().normalizeEmail(),
   check('password', 'Пароль не введен').exists()
@@ -96,7 +116,11 @@ router.post('/login', [
       res.status(400).json({
         message: 'Неверный пароль'
       })
-    }    
+    }   
+
+
+
+//////////// Generating tokens 
     const accessToken = jwt.sign(
       {
         userId: user.id,
@@ -117,10 +141,12 @@ router.post('/login', [
         expiresIn: '14 days'
       }
     );
-    res.json({userId: user.id, isAdmin: user.isAdmin, accessToken, refreshToken});
+/////////////////////////////
+
+    res.json({userId: user.id, isAdmin: user.isAdmin, accessToken, refreshToken, isActive: user.active});
 
   } catch (e) {
-    console.error('Registration error: ', e.message);
+    console.error('Login error: ', e.message);
   }
 
 })

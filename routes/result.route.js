@@ -1,12 +1,11 @@
 const { Router } = require('express');
-const auth = require('../middleware/auth.middleware');
 const adminCheck = require('../middleware/adminCheck.middleware');
 const Result = require('../models/Result');
 const User = require('../models/User');
 
 const router = Router();
 
-router.get('/test/:testId', auth, async (req, res) => {
+router.get('/test/:testId', async (req, res) => {
   // Result of test for user
   try {
     const userId = req.userId,
@@ -30,7 +29,7 @@ router.get('/test/:testId', auth, async (req, res) => {
 
 
 } )
-router.get('/test/:testId/:userId', auth, adminCheck, async (req, res) => {
+router.get('/test/:testId/:userId', adminCheck, async (req, res) => {
   // Result of test for admin
   try {
     const userId = req.params.userId,
@@ -51,7 +50,7 @@ router.get('/test/:testId/:userId', auth, adminCheck, async (req, res) => {
     res.status(500).json({message: e.message});    
   }
 } )
-router.get('/table/:testId', auth, adminCheck, async (req, res) => {
+router.get('/table/:testId', adminCheck, async (req, res) => {
   // Results of test in table, for admin
   try {
     const query = req.query;

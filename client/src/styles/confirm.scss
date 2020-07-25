@@ -1,0 +1,28 @@
+.confirm {
+    .card-panel {
+        padding: 0 2rem 2rem 2rem;
+        min-height: 30vh;
+        display: flex;
+        flex-direction: column;
+        .info {
+            font-size: 1.3rem;
+            text-align: justify;
+            text-indent: 1rem;
+        }
+        .header {
+            padding-left: 2rem;
+        }
+        .btn-wrapper {
+            .go-btn {
+                a {
+                    color: white;
+                    font-weight: 500;
+                    font-size: 1.15rem;
+                    padding: .5rem;
+                    text-transform: none;
+                }
+            }
+            margin: 15px auto;
+        }
+    }
+}

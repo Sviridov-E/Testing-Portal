@@ -1,10 +1,9 @@
 const { Router } = require('express');
-const auth = require('../middleware/auth.middleware');
 const adminCheck = require('../middleware/adminCheck.middleware');
 
 const router = Router();
 
-router.get('/(:testId)?', auth, adminCheck, async (req, res) => {
+router.get('/(:testId)?', adminCheck, async (req, res) => {
   try {
     const testId = req.params.testId;
     let calculator;

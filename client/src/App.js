@@ -9,21 +9,22 @@ import { Loader } from './components/Loader';
 
 
 function App() {
-  const { userId, accessToken, refreshToken, isAdmin, login, logout, ready } = useAuth();
+  const { userId, accessToken, refreshToken, isAdmin, login, logout, ready, isActive, activate, resetActive } = useAuth();
 
   const isAuthenticated = !!accessToken;
 
-  const routes = useRoutes(isAuthenticated, isAdmin);
+  const routes = useRoutes(isAuthenticated, isAdmin, isActive);
 
   if(!ready){
     return <Loader size="big"/>
   }
 
   return (
-    <AuthContext.Provider value={{ userId, token: accessToken, refreshToken, login, logout, isAuthenticated, isAdmin }}>
+    <AuthContext.Provider value={{ userId, token: accessToken, refreshToken, login, logout, isAuthenticated, isAdmin, isActive, activate, resetActive }}>
       <BrowserRouter>
         <div className="app">
           <NavBar isAuthenticated={isAuthenticated}></NavBar>
+          <div className="row empty"></div>
           {routes}
         </div>
       </BrowserRouter>

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import '../styles/userFilter.scss';
 
 export const UserFilter = ({ requestParams, setRequestParams, params, whereSearchButtonClick = () => {} }) => {
   const history = useHistory();
@@ -53,7 +54,7 @@ export const UserFilter = ({ requestParams, setRequestParams, params, whereSearc
       </div>
     ),
     gender: (
-      <div key={4} className="input-field col">
+      <div key={4} className="input-field col gender">
         <select name='gender' onChange={handleChange} value={requestParams.gender ? requestParams.gender : 'Все'}>
           <option value={''}>Все</option>
           <option value={'М'}>М</option>

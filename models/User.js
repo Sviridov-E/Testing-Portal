@@ -10,6 +10,7 @@ const schema = new Schema({
   gradeNumber: {type: Number, required: true},
   gradeLetter: {type: String, required: true},
   gender: {type: String, required: true},
+  active: {type: Boolean},
   passedTests: [{
     owner: {type: Types.ObjectId, ref: 'Test'},
     result: {type: Types.ObjectId, ref: 'Result'},

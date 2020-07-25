@@ -1,9 +1,12 @@
-import { useState, useCallback } from "react"
+import { useState, useCallback, useContext } from "react"
 import { useRefresh } from "./refresh.hook";
+import { AuthContext } from "../context/AuthContext";
 
 export const useHttp = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const { resetActive } = useContext(AuthContext);
 
   const refresh = useRefresh();
 
@@ -23,6 +26,10 @@ export const useHttp = () => {
       if(data.tokenExpired){
         await refresh();
         return;
+      }
+      if(data.notActive) {
+        return resetActive();
+
       }
       const status = response.status;
       Object.defineProperty(data, 'status', {

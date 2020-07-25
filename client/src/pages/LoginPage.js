@@ -29,7 +29,7 @@ export const LoginPage = () => {
     event.preventDefault();
     try {
       const data = await request('/api/auth/login', 'POST', { email, password });
-      login(data.userId, data.accessToken, data.refreshToken, data.isAdmin);
+      login(data.userId, data.accessToken, data.refreshToken, data.isAdmin, data.isActive);
     } catch (e) {
       console.log('Ошибка при входе: ', e.message);
       clearError();

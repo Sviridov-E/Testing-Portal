@@ -6,6 +6,9 @@ export const AuthContext = createContext({
   refreshToken: null,
   login: ()=>{},
   logout: ()=>{},
+  activate: ()=>{},
+  resetActive: ()=>{},
   isAuthenticated: false,
-  isAdmin: false
+  isAdmin: false,
+  isActive: false,
 });

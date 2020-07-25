@@ -8,9 +8,23 @@ import { Result } from './pages/admin/Result';
 import { Test } from './pages/user/Test';
 import { Users } from './pages/admin/Users';
 import { TestResult } from './pages/admin/TestResult';
+import { ConfirmEmail } from './pages/ConfirmEmail';
+import { ConfirmInfo } from './pages/ConfirmInfo';
 
-export const useRoutes = (isAuthenticated, isAdmin) => {
-  
+export const useRoutes = (isAuthenticated, isAdmin, isActive) => {
+  if(isAuthenticated && !isActive){
+    return (
+      <Switch>
+        <Route path="/confirm" exact>
+          <ConfirmInfo/>
+        </Route>
+        <Route path="/confirm/:hash">
+          <ConfirmEmail/>
+        </Route>
+        <Redirect to="/confirm"/>
+      </Switch>
+    )
+  }
   if(isAuthenticated && isAdmin){
     return (
       <Switch>
@@ -29,6 +43,9 @@ export const useRoutes = (isAuthenticated, isAdmin) => {
         <Route path="/tests/result/:id">
           <TestResult/>
         </Route>
+        <Route path="/confirm/:hash">
+          <ConfirmEmail/>
+        </Route>
         <Redirect to="/users"/>
       </Switch>
     );
@@ -45,7 +62,9 @@ export const useRoutes = (isAuthenticated, isAdmin) => {
         <Route path="/tests/:id">
           <Test/>
         </Route>
-
+        <Route path="/confirm/:hash">
+          <ConfirmEmail/>
+        </Route>
         <Redirect to="/profile"/>
       </Switch>
     );
@@ -57,6 +76,9 @@ export const useRoutes = (isAuthenticated, isAdmin) => {
       </Route>
       <Route path="/login" exact>
         <LoginPage/>
+      </Route>
+      <Route path="/confirm/:hash">
+          <ConfirmEmail/>
       </Route>
       <Redirect to="/login"/>
     </Switch>
