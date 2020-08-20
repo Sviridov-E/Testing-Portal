@@ -57,8 +57,8 @@ export const UserFilter = ({ requestParams, setRequestParams, params, whereSearc
       <div key={4} className="input-field col gender">
         <select name='gender' onChange={handleChange} value={requestParams.gender ? requestParams.gender : 'Все'}>
           <option value={''}>Все</option>
-          <option value={'М'}>М</option>
-          <option value={'Ж'}>Ж</option>
+          <option value={'male'}>М</option>
+          <option value={'female'}>Ж</option>
         </select>
         <label>Пол</label>
       </div>
