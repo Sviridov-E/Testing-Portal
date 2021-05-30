@@ -48,7 +48,6 @@ export const RegisterPage = () => {
     if(!fieldsNotEmpty(state)){
       return window.M.toast({html: 'Все поля должны быть заполнены!'})
     }
-    if(state)
     try {
       const data = await request('/api/auth/register', 'POST', state);
       if(data) {
@@ -129,8 +128,8 @@ export const RegisterPage = () => {
                 <div className="row">
                   <div className="user-input input field col m6 s12">
                     <div className="black-text input-field birthdate">
-                      <input ref={birthdateRef} name="birthdate" value={state.birthdate.toLocaleDateString ? state.birthdate.toLocaleDateString() : ''} onChange={handleChange} type="text" className="datepicker"/>
-                      <label>Дата рождения</label>
+                      <input ref={birthdateRef} name="birthdate" id="birthdateInput" value={state.birthdate ? state.birthdate.toLocaleDateString() : ''} onChange={handleChange} type="text" className="datepicker"/>
+                      <label htmlFor="birthdateInput">Дата рождения</label>
                     </div>
                   </div>
                   <div className="user-input input-field col m3 s12">

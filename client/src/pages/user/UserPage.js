@@ -78,6 +78,10 @@ export const UserPage = () => {
   }, [fetchedData]);
 ////////////////////////// RETURNED PART ///////////////////////////////////////
 
+  const getCorrectDate = useCallback((date) => {
+    return window.Intl.DateTimeFormat('ru').format(date);
+  }, [])
+
   if(!isAuthenticated) return <NotAuthenticated/>;
 
   if(loading || !state.firstName) return <Loader size="big"/>
@@ -93,7 +97,7 @@ export const UserPage = () => {
         </div>
         <hr/>
         <div className='content'>
-          <p><strong>Дата рождения: </strong>{`${state.birthdate.toLocaleDateString()} (${getFullYears(state.birthdate)})`}</p>
+          <p><strong>Дата рождения: </strong>{`${getCorrectDate(state.birthdate)} (${getFullYears(state.birthdate)})`}</p>
           <p><strong>Электронная почта: </strong><a href={`mailto:${state.email}`}>{state.email}</a></p>
         </div>
         <div className="result">
@@ -105,7 +109,7 @@ export const UserPage = () => {
                 <a key={item.resultId} href="/" data-test-name={item.name} data-test-id={item.resultId} onClick={handleTestClick} className="collection-item">
                   <div className="test-list">
                     <span className="name">{item.name}</span>
-                    <strong className="date">{date.toLocaleDateString()}</strong>
+                    <strong className="date">{getCorrectDate(date)}</strong>
                   </div>
                 </a>
               );
