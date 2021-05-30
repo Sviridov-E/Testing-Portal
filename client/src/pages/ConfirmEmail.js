@@ -15,7 +15,7 @@ export const ConfirmEmail = () => {
 
     const { request, loading, error, clearError } = useHttp();
 
-    const { activate } = useContext(AuthContext);
+    const { activate, userId } = useContext(AuthContext);
 
     const toConfirm = useCallback(async () => {
         try {
@@ -29,9 +29,9 @@ export const ConfirmEmail = () => {
     }, [toConfirm])
     useEffect(() => {
         if(success) {
-            activate();
+            userId && activate();
         }
-    }, [success, activate]);
+    }, [success, activate, userId]);
     if(error) {    
         return (
             <div>

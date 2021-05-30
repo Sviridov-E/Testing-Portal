@@ -80,6 +80,9 @@ export const useRoutes = (isAuthenticated, isAdmin, isActive) => {
       <Route path="/confirm/:hash">
           <ConfirmEmail/>
       </Route>
+      <Route path="/confirm" exact>
+          <ConfirmInfo/>
+      </Route>
       <Redirect to="/login"/>
     </Switch>
   );

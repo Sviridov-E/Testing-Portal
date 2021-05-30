@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 import '../styles/registerPage.scss'
 import { useHttp } from '../hooks/http.hook';
 import { Loader } from '../components/Loader';
@@ -51,7 +51,7 @@ export const RegisterPage = () => {
     try {
       const data = await request('/api/auth/register', 'POST', state);
       if(data) {
-        history.push('/login');
+        history.push('/confirm');
       }
     } catch (e) {
       window.M.toast({html: `Ошибка регистрации: ${e.message}`})
@@ -84,6 +84,10 @@ export const RegisterPage = () => {
     window.M.FormSelect.init(gradeLetterRef.current);
   }, [error, clearError]);
   
+  const getCorrectDate = useCallback((date) => {
+    return window.Intl.DateTimeFormat('ru').format(date);
+  }, [])
+
   if(loading) {
     return <Loader size="big"/>
   }
@@ -128,7 +132,7 @@ export const RegisterPage = () => {
                 <div className="row">
                   <div className="user-input input field col m6 s12">
                     <div className="black-text input-field birthdate">
-                      <input ref={birthdateRef} name="birthdate" id="birthdateInput" value={state.birthdate ? state.birthdate.toLocaleDateString() : ''} onChange={handleChange} type="text" className="datepicker"/>
+                      <input ref={birthdateRef} name="birthdate" id="birthdateInput" value={state.birthdate ? getCorrectDate(state.birthdate) : ''} onChange={handleChange} type="text" className="datepicker"/>
                       <label htmlFor="birthdateInput">Дата рождения</label>
                     </div>
                   </div>
