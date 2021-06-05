@@ -34,7 +34,7 @@ export const Result = () => {
   useEffect(() => {
     const selector = selectorRef.current;
     window.M.FormSelect.init(selector);
-  });
+  }, [testsList]);
 
   const handleSelect = event => {
     if(!event.target.value){

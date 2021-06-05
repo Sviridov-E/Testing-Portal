@@ -1,0 +1,33 @@
+$main-color: #c5cae9;
+$secondary-color: #fff;
+$valid-color: #4caf50;
+$invalid-color: #F44336;
+
+.input-field {
+    label {
+        color: $main-color;
+    }
+    input {
+        color: white;
+        border-color: $main-color;
+        &.valid {
+            border-color: $valid-color;
+            box-shadow: 0 1px 0 0 $valid-color;
+        }
+        &.invalid {
+            border-color: $invalid-color;
+            box-shadow: 0 1px 0 0 $invalid-color;
+            &~.helper-text {
+                color: $invalid-color;
+            }
+        }
+
+        &:focus {
+            border-bottom-color: $secondary-color;
+            box-shadow: 0 1px 0 0 $secondary-color;
+        }
+        &:focus+label {
+            color: $secondary-color !important;
+        }
+    }
+}

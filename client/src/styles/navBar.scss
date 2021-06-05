@@ -1,5 +1,6 @@
 nav {
   .nav-wrapper {
+    overflow: hidden;
     .logo{
       padding-right: 2rem;
       height: 100%;
@@ -10,8 +11,10 @@ nav {
         height: 70%;
       }
     }
-    .link-name{
-      font-size: 1.3rem;
+    li {
+      .link-name {
+        font-size: 1.3rem;
+      }
     }
   }
 }

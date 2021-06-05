@@ -24,7 +24,6 @@ function App() {
       <BrowserRouter>
         <div className="app">
           <NavBar isAuthenticated={isAuthenticated}></NavBar>
-          <div className="row empty"></div>
           {routes}
         </div>
       </BrowserRouter>

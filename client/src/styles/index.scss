@@ -1,1 +1,9 @@
 @import "../~materialize-css/sass/materialize.scss";
+
+html {
+    .row {
+        &::after {
+            display: none !important;
+        }
+    }
+}
