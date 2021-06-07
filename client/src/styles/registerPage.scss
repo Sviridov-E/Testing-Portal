@@ -11,36 +11,11 @@
         background: #536dfe;
       }
     }
-    .user-input{
-      padding-left: 1rem;
-      padding-right: 2rem;
-      input {
-        color: #e8eaf6;
-        padding-left: .5rem;
-      }
-      label {
-        color: #8c9eff;
-      }
-    }
-    .gender {
-      position: relative;
-      top: 10px;
-      fieldset {
-        border: none;
-      }
-      span {
-        color: #8c9eff;
-        padding-right: .5rem;
-      }
-      label {
-        padding: .3rem;
-      }
-    }
-    .birthdate {
-      label {
-        left: 0;
-      }
-    }
+  }
+  .gender {
+    height: 3rem;
+    display: flex;
+    align-items: flex-end;
   }
   h4 {
     padding-left: 3rem;
@@ -51,23 +26,5 @@
     justify-content: flex-end;
     padding-right: 2rem;
     padding-bottom: 1rem;
-  }
-}
-@media(max-width: 700px) {
-  .register-page {
-    .register-container{
-      .reg-wrapper {
-        height: auto;
-      }
-    }
-  }
-}
-@media(max-height: 700px) {
-  .register-page {
-    .register-container{
-      .reg-wrapper {
-        height: auto;
-      }
-    }
   }
 }

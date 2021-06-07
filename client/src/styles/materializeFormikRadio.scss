@@ -1,0 +1,25 @@
+@import 'inputFieldColors';
+
+.materialize-formik-radio {
+    margin: 0 8px;
+    input[type=radio].with-gap:checked {
+        &+span.label {
+            &:before {
+                border-color: $valid-color;
+            }
+            &:after {
+                border-color: $valid-color;
+                background-color: $valid-color;
+            }
+        }
+    }
+    input[type=radio].with-gap {
+        &+span.label {
+            color: $circle-color;
+            padding-left: 25px;
+            &:before, &:after {
+                border-color: $circle-color;
+            }
+        }
+    }
+}

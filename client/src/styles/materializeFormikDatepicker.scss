@@ -1,0 +1,68 @@
+@import "inputFieldColors";
+
+.materialize-formik-datepicker {
+    input[type="text"].datepicker {
+        color: $secondary-color;
+        border-color: $main-color;
+        &:focus {
+            border-color: $secondary-color;
+            box-shadow: 0 1px 0 0 $secondary-color;
+            & + label {
+                color: $main-color;
+            }
+        }
+        &.valid {
+            border-color: $valid-color;
+            box-shadow: 0 1px 0 0 $valid-color;
+        }
+        &.invalid {
+            border-color: $invalid-color;
+            box-shadow: 0 1px 0 0 $invalid-color;
+        }
+    }
+    label {
+        color: $secondary-color;
+        &.active {
+            color: $main-color;
+        }
+    }
+    .datepicker-modal {
+        .datepicker-calendar-container {
+            .datepicker-calendar {
+                .month-prev,
+                .month-next {
+                    &:focus {
+                        background-color: $main-color;
+                    }
+                }
+                .datepicker-table {
+                    td {
+                        color: black;
+                        &.is-today {
+                            color: $btn-text-color;
+                        }
+                        button {
+                            &:focus {
+                                background-color: #536dfe44;
+                            }
+                        }
+                        &.is-selected {
+                            background-color: $btn-text-color;
+                            color: $secondary-color;
+                        }
+                    }
+                }
+            }
+            .datepicker-footer {
+                .confirmation-btns {
+                    button {
+                        color: $btn-text-color;
+                    }
+                }
+            }
+        }
+    }
+    .helper-text {
+        color: $invalid-color;
+    }
+}

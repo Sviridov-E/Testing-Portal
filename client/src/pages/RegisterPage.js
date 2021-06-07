@@ -1,186 +1,169 @@
-import React, { useRef, useEffect, useState, useCallback } from 'react';
-import '../styles/registerPage.scss'
-import { useHttp } from '../hooks/http.hook';
-import { Loader } from '../components/Loader';
-import { useHistory} from 'react-router-dom';
+import React, { useEffect, useCallback } from "react";
+import "../styles/registerPage.scss";
+import { useHttp } from "../hooks/http.hook";
+import { Loader } from "../components/Loader";
+import { useHistory } from "react-router-dom";
+import { Form, Formik } from "formik";
+import { MaterializeFormikField } from "../components/MaterializeFormikField";
+import { MaterializeFormikRadio } from "../components/MaterializeFormikRadio";
+import { MaterializeFormikDatepicker } from "../components/MaterializeFormikDatepicker";
+import { MaterializeFormikSelect } from "../components/MaterializeFormikSelect";
+import * as yup from 'yup';
 
 export const RegisterPage = () => {
-  const birthdateRef = useRef(null);
-  const gradeNumberRef = useRef(null);
-  const gradeLetterRef = useRef(null);
 
-  const history = useHistory();
+    const history = useHistory();
 
+    const { request, loading, error, clearError } = useHttp();
 
-  const { request, loading, error, clearError} = useHttp();
+    useEffect(() => {
+        console.log("Ошибка при авторизации: ", error);
+        clearError();
+        window.M.updateTextFields();
+    }, [error, clearError]);
 
-  const [state, setState] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    birthdate: '',
-    password: '',
-    gradeNumber: '1',
-    gradeLetter: 'А',
-    gender: ''
-  });
+    const handleSubmit = useCallback(async (values) => {
+        try {
+            const data = await request("/api/auth/register", "POST", values);
+            if (data) {
+                history.push("/confirm");
+            }
+        } catch (e) {
+            window.M.toast({ html: `Ошибка регистрации: ${e.message}` });
+        }
+    }, [request, history]);
 
-  useEffect(()=>{
-    console.log('Ошибка при авторизации: ', error);    
-    clearError();
-    window.M.updateTextFields();
-  }, [error, clearError]);
-
-  const fieldsNotEmpty = obj => {
-    for (let value of Object.values(obj)){
-      if(!value) return false;
+    if (loading) {
+        return <Loader size="big" />;
     }
-    return true;
-  }
-
-  const handleChange = event => {
-    const name = event.target.name;
-    setState({...state, [name]: event.target.value})
-  }
-
-  const handleSubmit = async event => {
-    event.preventDefault();
-    if(!fieldsNotEmpty(state)){
-      return window.M.toast({html: 'Все поля должны быть заполнены!'})
-    }
-    try {
-      const data = await request('/api/auth/register', 'POST', state);
-      if(data) {
-        history.push('/confirm');
-      }
-    } catch (e) {
-      window.M.toast({html: `Ошибка регистрации: ${e.message}`})
-    }
-  }
-
-  useEffect(()=>{
-    
-    const params = {
-      onSelect(value){
-        setState(state => {
-          return { ...state, birthdate: value };
-        })
-      },
-      autoClose: true,
-      format: 'dd.mm.yyyy',
-      showDaysInNextAndPreviousMonths: false,
-      yearRange: [1980, 2020],
-      i18n: {
-        cancel: 'Отмена',
-        months: [ 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь' ],
-        weekdays: [ 'Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота' ],
-        weekdaysAbbrev: [ 'Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб' ],
-        weekdaysShort: [ 'Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб' ],
-        monthsShort: [ 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь' ]
-      }
-    };
-    window.M.Datepicker.init(birthdateRef.current, params);
-    window.M.FormSelect.init(gradeNumberRef.current);
-    window.M.FormSelect.init(gradeLetterRef.current);
-  }, [error, clearError]);
-  
-  const getCorrectDate = useCallback((date) => {
-    return window.Intl.DateTimeFormat('ru').format(date);
-  }, [])
-
-  if(loading) {
-    return <Loader size="big"/>
-  }
-  return (
-    <div className="container register-page">
-      <div className="row register-container">
-        <div className="col s12 m10 l6 offset-m1 offset-l3">
-          <div className="reg-wrapper">
-            <div className="card-panel indigo accent-3 white-text">
-              <h4>Регистрация</h4>
-              <form onSubmit={handleSubmit}>
-                <div className="row">
-                  <div className="user-input input-field col m6 s12">
-                    <input id="firstName" name="firstName" value={state.firstName} type="text" className="validate" onChange={handleChange}/>
-                    <label htmlFor="firstName">Имя</label>
-                  </div>
-                  <div className="user-input input-field col m6 s12">
-                    <input id="lastName" name="lastName" value={state.lastName} type="text" className="validate" onChange={handleChange}/>
-                    <label htmlFor="lastName">Фамилия</label>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="user-input input-field col s7">
-                    <input id="email" name="email" value={state.email} type="email" className="validate" onChange={handleChange}/>
-                    <label htmlFor="email">Адрес электронной почты</label>
-                    <span className="helper-text" data-error="Неверный формат" data-success=""></span>
-                  </div>
-                  <div className="gender user-input input-field col s5">
-                    <fieldset onChange={handleChange}>
-                        <span className="title">Пол</span>
-                        <label>
-                          <input name='gender' type="radio" value="male"/>
-                          <span>М</span>
-                        </label>
-                        <label>
-                          <input name='gender' type="radio" value="female"/>
-                          <span>Ж</span>
-                        </label>
-                    </fieldset>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="user-input input field col m6 s12">
-                    <div className="black-text input-field birthdate">
-                      <input ref={birthdateRef} name="birthdate" id="birthdateInput" value={state.birthdate ? getCorrectDate(state.birthdate) : ''} onChange={handleChange} type="text" className="datepicker"/>
-                      <label htmlFor="birthdateInput">Дата рождения</label>
+    return (
+        <div className="container register-page">
+            <div className="row register-container">
+                <div className="col s12 m10 l8 xl6 offset-m1 offset-l2 offset-xl3">
+                    <div className="reg-wrapper">
+                        <div className="card-panel indigo accent-3 white-text">
+                            <h4>Регистрация</h4>
+                            <Formik
+                                initialValues={{
+                                    firstName: "",
+                                    lastName: "",
+                                    email: "",
+                                    birthdate: "",
+                                    password: "",
+                                    gradeNumber: "",
+                                    gradeLetter: "",
+                                    gender: "",
+                                }}
+                                validationSchema={yup.object({
+                                  firstName: yup
+                                    .string()
+                                    .required('Обязательное поле'),
+                                  lastName: yup
+                                    .string()
+                                    .required('Обязательное поле'),
+                                  email: yup
+                                    .string()
+                                    .email('Неверный формат')
+                                    .required('Обязательное поле'),
+                                  birthdate: yup
+                                    .date('Неверный формат')
+                                    .required('Обязательное поле'),
+                                  password: yup
+                                    .string()
+                                    .required('Обязательное поле'),
+                                  gradeNumber: yup
+                                    .number()
+                                    .required('Обязательное поле'),
+                                  gradeLetter: yup
+                                    .string()
+                                    .required('Обязательное поле'),
+                                  gender: yup
+                                    .string()
+                                    .required('Обязательное поле')
+                                })}
+                                onSubmit={handleSubmit}
+                            >
+                                <Form className="reg-form">
+                                    <div className="row">
+                                        <MaterializeFormikField
+                                            className="col m6 s12"
+                                            name="firstName"
+                                            label="Имя"
+                                        />
+                                        <MaterializeFormikField
+                                            className="col m6 s12"
+                                            name="lastName"
+                                            label="Фамилия"
+                                        />
+                                    </div>
+                                    <div className="row email-gender-row">
+                                        <MaterializeFormikField
+                                            className="col m7 s12"
+                                            name="email"
+                                            label="Электронная почта"
+                                        />
+                                        <div className="col m5 s10">
+                                            <div className="gender">
+                                                <span>Пол: </span>
+                                                <MaterializeFormikRadio
+                                                    name="gender"
+                                                    label="М"
+                                                    value="male"
+                                                />
+                                                <MaterializeFormikRadio
+                                                    name="gender"
+                                                    label="Ж"
+                                                    value="female"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <MaterializeFormikDatepicker
+                                            className="col s6"
+                                            name="birthdate"
+                                            label="Дата рождения"
+                                        />
+                                        <MaterializeFormikSelect
+                                            className="col s3"
+                                            name="gradeNumber"
+                                            label="Класс"
+                                        >
+                                            <option value="" disabled>Класс</option>
+                                            {[1,2,3,4,5,6,7,8,9,10,11].map(num => <option value={num} key={num}>{num}</option>)}
+                                        </MaterializeFormikSelect>
+                                        <MaterializeFormikSelect
+                                            className="col s3"
+                                            name="gradeLetter"
+                                            label="Буква"
+                                        >
+                                            <option value="" disabled>Буква</option>
+                                            {['А', 'Б', 'В', 'Г', 'Д', 'Е'].map(letter => <option value={letter} key={letter}>{letter}</option>)}
+                                        </MaterializeFormikSelect>
+                                    </div>
+                                    <div className="row">
+                                      <MaterializeFormikField
+                                        className="col s12"
+                                        name="password"
+                                        type="password"
+                                        label="Пароль"
+                                      />
+                                    </div>
+                                    <div className="buttons">
+                                        <button
+                                            className="btn waves-effect waves-light indigo darken-2"
+                                            type="submit"
+                                            name="submit"
+                                        >
+                                            Зарегистрироваться
+                                        </button>
+                                    </div>
+                                </Form>
+                            </Formik>
+                        </div>
                     </div>
-                  </div>
-                  <div className="user-input input-field col m3 s12">
-                    <select name="gradeNumber" ref={gradeNumberRef} onChange={handleChange}>
-                      <option value={`1`}>{`1`}</option>
-                      <option value={`2`}>{`2`}</option>
-                      <option value={`3`}>{`3`}</option>
-                      <option value={`4`}>{`4`}</option>
-                      <option value={`5`}>{`5`}</option>
-                      <option value={`6`}>{`6`}</option>
-                      <option value={`7`}>{`7`}</option>
-                      <option value={`8`}>{`8`}</option>
-                      <option value={`9`}>{`9`}</option>
-                      <option value={`10`}>{`10`}</option>
-                      <option value={`11`}>{`11`}</option>
-                    </select>
-                    <label>Класс</label>
-                  </div>
-                  <div className="user-input input-field col m3 s12">
-                    <select name="gradeLetter" ref={gradeLetterRef} onChange={handleChange}>
-                      <option value={`А`}>{`А`}</option>
-                      <option value={`Б`}>{`Б`}</option>
-                      <option value={`В`}>{`В`}</option>
-                      <option value={`Г`}>{`Г`}</option>
-                      <option value={`Д`}>{`Д`}</option>
-                      <option value={`Е`}>{`Е`}</option>
-                      <option value={`Ж`}>{`Ж`}</option>
-                      <option value={`З`}>{`З`}</option>
-                      <option value={`И`}>{`И`}</option>
-                    </select>
-                    <label>Буква</label>
-                  </div>
                 </div>
-                <div className="row">
-                  <div className="user-input input-field col s12">
-                    <input id="password" name="password" value={state.password} type="password" className="validate" onChange={handleChange}/>
-                    <label htmlFor="password">Пароль</label>
-                  </div>
-                </div>
-                <div className='buttons'>
-                  <button className="btn waves-effect waves-light indigo darken-2" type="submit" name="submit">Зарегистрироваться</button>
-                </div>
-              </form>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
-  );
-}
+    );
+};

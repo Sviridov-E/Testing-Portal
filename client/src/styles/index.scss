@@ -1,9 +1,15 @@
 @import "../~materialize-css/sass/materialize.scss";
+@import "inputFieldColors";
 
 html {
     .row {
-        &::after {
-            display: none !important;
+        float: none;
+    }
+    .dropdown-content.select-dropdown {
+        li {
+            span {
+                color: $btn-text-color;
+            }
         }
     }
 }

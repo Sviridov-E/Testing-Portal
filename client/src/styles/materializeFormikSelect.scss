@@ -1,0 +1,36 @@
+@import 'inputFieldColors';
+
+.input-field.materialize-formik-select {
+    input.select-dropdown {
+      color: $secondary-color;
+      &:focus {
+        border-color: $secondary-color;
+        box-shadow: 0 1px 0 0 $secondary-color;
+      }
+    }
+    .dropdown-content {
+      li {
+        span {
+          color: #303f9f;
+        }
+      }
+    }
+    &.valid {
+      input {
+        border-color: $valid-color;
+        box-shadow: 0 1px 0 0 $valid-color;
+      }
+    }
+    &.invalid {
+      input {
+        border-color: $invalid-color;
+        box-shadow: 0 1px 0 0 $invalid-color;
+      }
+      .helper-text {
+        color: $invalid-color;
+      }
+    }
+    label {
+      color: $main-color;
+    }
+  }

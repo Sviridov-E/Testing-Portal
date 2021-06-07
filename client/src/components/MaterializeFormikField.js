@@ -6,7 +6,7 @@ import "/home/tomas/developing/node/testing-portal/client/src/styles/materialize
 export const MaterializeFormikField = ({ name, label, type = "text", className }) => {
     const { error, touched } = useField(name)[1];
     return (
-      <div className={`input-field ${className}`}>
+      <div className={`input-field materialize-formik-field ${className}`}>
         <Field
           id={name}
           className={touched ? (error ? "invalid" : "valid") : ""}
@@ -24,6 +24,6 @@ export const MaterializeFormikField = ({ name, label, type = "text", className }
   MaterializeFormikField.propTypes = {
       name: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
+      type: PropTypes.string,
       className: PropTypes.string
   }

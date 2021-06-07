@@ -1,15 +1,19 @@
-$main-color: #c5cae9;
-$secondary-color: #fff;
-$valid-color: #4caf50;
-$invalid-color: #F44336;
+@import 'inputFieldColors';
 
-.input-field {
+.input-field.materialize-formik-field {
     label {
-        color: $main-color;
+        color: $secondary-color;
+        &.active {
+            color: $main-color
+        }
     }
-    input {
-        color: white;
+    input[type=text], input[type=password] {
+        color: $secondary-color;
         border-color: $main-color;
+        &:focus {
+            border-bottom-color: $secondary-color !important;
+            box-shadow: 0 1px 0 0 $secondary-color !important;
+        }
         &.valid {
             border-color: $valid-color;
             box-shadow: 0 1px 0 0 $valid-color;
@@ -21,13 +25,8 @@ $invalid-color: #F44336;
                 color: $invalid-color;
             }
         }
-
-        &:focus {
-            border-bottom-color: $secondary-color;
-            box-shadow: 0 1px 0 0 $secondary-color;
-        }
         &:focus+label {
-            color: $secondary-color !important;
+            color: $main-color !important;
         }
     }
 }

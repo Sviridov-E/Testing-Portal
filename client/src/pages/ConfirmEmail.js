@@ -13,7 +13,7 @@ export const ConfirmEmail = () => {
     const [success, setSuccess] = useState(false);
     const hash = useRouteMatch('/confirm/:hash').params.hash;
 
-    const { request, loading, error, clearError } = useHttp();
+    const { request, loading, error, /* clearError */ } = useHttp();
 
     const { activate, userId } = useContext(AuthContext);
 
