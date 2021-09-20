@@ -4,7 +4,7 @@ import { Chart } from '../../components/Chart';
 import { AuthContext } from '../../context/AuthContext';
 import '../../styles/result.scss';
 
-export const Result = () => {
+const Result = () => {
   const selectorRef = useRef(null);
 
   const [testsList, setTestsList] = useState([]);
@@ -77,3 +77,5 @@ export const Result = () => {
     </div>
   );
 }
+
+export default Result;

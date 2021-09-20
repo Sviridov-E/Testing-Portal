@@ -2,88 +2,99 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { RegisterPage } from './pages/RegisterPage';
 import { LoginPage } from './pages/LoginPage';
-import { UserPage } from './pages/user/UserPage';
-import { AllTests } from './pages/AllTests';
-import { Result } from './pages/admin/Result';
-import { Test } from './pages/user/Test';
-import { Users } from './pages/admin/Users';
-import { TestResult } from './pages/admin/TestResult';
-import { ConfirmEmail } from './pages/ConfirmEmail';
-import { ConfirmInfo } from './pages/ConfirmInfo';
+import { Suspense } from 'react';
+import { Loader } from './components/Loader';
+
+const UserPage = React.lazy(() => import('./pages/user/UserPage')),
+  AllTests = React.lazy(() => import('./pages/AllTests')),
+  Result = React.lazy(() => import('./pages/admin/Result')),
+  Test = React.lazy(() => import('./pages/user/Test')),
+  Users = React.lazy(() => import('./pages/admin/Users')),
+  TestResult = React.lazy(() => import('./pages/admin/TestResult')),
+  ConfirmEmail = React.lazy(() => import('./pages/ConfirmEmail')),
+  ConfirmInfo = React.lazy(() => import('./pages/ConfirmInfo'));
 
 export const useRoutes = (isAuthenticated, isAdmin, isActive) => {
-  if(isAuthenticated && !isActive){
+  if (isAuthenticated && !isActive) {
     return (
-      <Switch>
-        <Route path="/confirm" exact>
-          <ConfirmInfo/>
-        </Route>
-        <Route path="/confirm/:hash">
-          <ConfirmEmail/>
-        </Route>
-        <Redirect to="/confirm"/>
-      </Switch>
-    )
-  }
-  if(isAuthenticated && isAdmin){
-    return (
-      <Switch>
-        <Route path="/users" exact>
-          <Users/>
-        </Route>
-        <Route path="/users/profile/:id" exact>
-          <UserPage/>
-        </Route>
-        <Route path="/tests" exact>
-          <AllTests/>
-        </Route>
-        <Route path="/result" exact>
-          <Result/>
-        </Route>
-        <Route path="/tests/result/:id">
-          <TestResult/>
-        </Route>
-        <Route path="/confirm/:hash">
-          <ConfirmEmail/>
-        </Route>
-        <Redirect to="/users"/>
-      </Switch>
+      <Suspense fallback={<Loader/>}>
+        <Switch>
+          <Route path="/confirm" exact>
+            <ConfirmInfo />
+          </Route>
+          <Route path="/confirm/:hash">
+            <ConfirmEmail />
+          </Route>
+          <Redirect to="/confirm" />
+        </Switch>
+      </Suspense>
     );
   }
-  if(isAuthenticated){
+  if (isAuthenticated && isAdmin) {
     return (
-      <Switch>
-        <Route path="/profile" exact>
-          <UserPage/>
-        </Route>
-        <Route path="/tests" exact>
-          <AllTests/>
-        </Route>
-        <Route path="/tests/:id">
-          <Test/>
-        </Route>
-        <Route path="/confirm/:hash">
-          <ConfirmEmail/>
-        </Route>
-        <Redirect to="/profile"/>
-      </Switch>
+      <Suspense fallback={<Loader />}>
+        <Switch>
+          <Route path="/users" exact>
+            <Users />
+          </Route>
+          <Route path="/users/profile/:id" exact>
+            <UserPage />
+          </Route>
+          <Route path="/tests" exact>
+            <AllTests />
+          </Route>
+          <Route path="/result" exact>
+            <Result />
+          </Route>
+          <Route path="/tests/result/:id">
+            <TestResult />
+          </Route>
+          <Route path="/confirm/:hash">
+            <ConfirmEmail />
+          </Route>
+          <Redirect to="/users" />
+        </Switch>
+      </Suspense>
     );
-  }  
+  }
+  if (isAuthenticated) {
+    return (
+      <Suspense fallback={<Loader />}>
+        <Switch>
+          <Route path="/profile" exact>
+            <UserPage />
+          </Route>
+          <Route path="/tests" exact>
+            <AllTests />
+          </Route>
+          <Route path="/tests/:id">
+            <Test />
+          </Route>
+          <Route path="/confirm/:hash">
+            <ConfirmEmail />
+          </Route>
+          <Redirect to="/profile" />
+        </Switch>
+      </Suspense>
+    );
+  }
   return (
-    <Switch>
-      <Route path="/register" exact>
-        <RegisterPage/>
-      </Route>
-      <Route path="/login" exact>
-        <LoginPage/>
-      </Route>
-      <Route path="/confirm/:hash">
-          <ConfirmEmail/>
-      </Route>
-      <Route path="/confirm" exact>
-          <ConfirmInfo/>
-      </Route>
-      <Redirect to="/login"/>
-    </Switch>
+    <Suspense fallback={<Loader />}>
+      <Switch>
+        <Route path="/register" exact>
+          <RegisterPage />
+        </Route>
+        <Route path="/login" exact>
+          <LoginPage />
+        </Route>
+        <Route path="/confirm/:hash">
+          <ConfirmEmail />
+        </Route>
+        <Route path="/confirm" exact>
+          <ConfirmInfo />
+        </Route>
+        <Redirect to="/login" />
+      </Switch>
+    </Suspense>
   );
-}
+};

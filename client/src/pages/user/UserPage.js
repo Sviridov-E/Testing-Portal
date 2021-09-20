@@ -10,7 +10,7 @@ import { ResultModalWindow } from '../../components/ResultModalWindow/ResultModa
 import { useModalResult } from '../../hooks/modalResult.hook';
 import { useLocation } from 'react-router-dom';
 
-export const UserPage = () => {
+const UserPage = () => {
   const [state, setState] = useState({
     firstName: null,
     lastName: null,
@@ -140,3 +140,5 @@ export const UserPage = () => {
     </div>
   );
 };
+
+export default UserPage;

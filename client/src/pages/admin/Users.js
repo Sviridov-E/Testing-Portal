@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import { ResultTable } from '../../components/ResultTable';
 
-export const Users = () => {
+const Users = () => {
   const { token } = useContext(AuthContext);
   const [ usersList, setUsersList ] = useState([]);
   const queryString = useLocation().search;
@@ -80,3 +80,5 @@ export const Users = () => {
 */
   );
 }
+
+export default Users;

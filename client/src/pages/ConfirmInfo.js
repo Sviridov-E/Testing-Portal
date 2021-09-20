@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/confirm.scss';
 
-export const ConfirmInfo = () => {
+const ConfirmInfo = () => {
     return (
         <article className="confirm container">
             <div className="row confirm-info">
@@ -13,3 +13,5 @@ export const ConfirmInfo = () => {
         </article>
     )
 }
+
+export default ConfirmInfo;

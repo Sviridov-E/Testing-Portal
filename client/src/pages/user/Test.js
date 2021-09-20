@@ -8,7 +8,7 @@ import { TestDescription } from '../../components/TestDescription';
 import { PassingTest } from '../../components/PassingTest';
 import { NotAuthenticated } from '../../components/NotAuthenticated';
 
-export const Test = () => {
+const Test = () => {
   const [ data, setData ] = useState({});
   const [ testStarted, setTestStarted] = useState(false);
   const [ testIsAlreadyPassed, setTestIsAlreadyPassed ] = useState(false);
@@ -73,3 +73,5 @@ export const Test = () => {
 
   return content;
 }
+
+export default Test;

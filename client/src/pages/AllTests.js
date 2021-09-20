@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import '../styles/allTests.scss';
 
 
-export const AllTests = () => {
+const AllTests = () => {
   const [testsList, setTestsList] = useState([]);
   const history = useHistory();
 
@@ -64,3 +64,5 @@ export const AllTests = () => {
     </div>
   );
 }
+
+export default AllTests;

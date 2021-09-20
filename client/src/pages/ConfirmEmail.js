@@ -9,7 +9,7 @@ import { Loader } from '../components/Loader';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 
-export const ConfirmEmail = () => {
+const ConfirmEmail = () => {
     const [success, setSuccess] = useState(false);
     const hash = useRouteMatch('/confirm/:hash').params.hash;
 
@@ -61,3 +61,5 @@ export const ConfirmEmail = () => {
         </article>
     )
 }
+
+export default ConfirmEmail;

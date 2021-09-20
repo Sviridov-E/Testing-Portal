@@ -6,7 +6,7 @@ import { AuthContext } from '../../context/AuthContext';
 import { useLocation } from 'react-router-dom';
 import { Refresh } from '../../components/Refresh';
 
-export const TestResult = () => {
+const TestResult = () => {
   const [requestParams, setRequestParams] = useState({
     gradeNumber: null,
     gradeLetter: null,
@@ -85,3 +85,5 @@ export const TestResult = () => {
     </>
   )
 }
+
+export default TestResult;
