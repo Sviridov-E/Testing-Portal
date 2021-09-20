@@ -33,33 +33,35 @@ export const ResultTable = ({ tableData, setTableData, loading }) => {
   if(loading || !tableHead ) return <Loader size="big"/>
 
   return (
-    <table className="container highlight result-table">
-      <thead>
-        <tr>
-            {
-              tableHead.map((item, ind) =>{
-              if(sortedFieldIndex !== null && +sortedFieldIndex === +ind) {
-                return <th data-id={ind} key={ind} onClick={handleClick}><div>{item} <i className="small material-icons">arrow_drop_{direction}</i></div></th>
-              }
-              return <th data-id={ind} key={ind} onClick={handleClick}><div>{item} <div className="indent"></div></div></th>
-              })
-            }
-        </tr>
-      </thead>
-
-      <tbody>
-        {
-          profiles.map((item, ind) => {
-            return (
-              <tr key={ind} onClick={()=>{toUserPage(item._id)}}>
-                {
-                item.values.map((value, ind) => <td key={ind}>{value}</td>)
+    <div className="container result-table-wrapper">
+      <table className="highlight result-table">
+        <thead>
+          <tr>
+              {
+                tableHead.map((item, ind) =>{
+                if(sortedFieldIndex !== null && +sortedFieldIndex === +ind) {
+                  return <th data-id={ind} key={ind} onClick={handleClick}><div>{item} <i className="small material-icons">arrow_drop_{direction}</i></div></th>
                 }
-              </tr>
-            );
-          })
-        }
-      </tbody>
-    </table>
+                return <th data-id={ind} key={ind} onClick={handleClick}><div>{item} <div className="indent"></div></div></th>
+                })
+              }
+          </tr>
+        </thead>
+
+        <tbody>
+          {
+            profiles.map((item, ind) => {
+              return (
+                <tr key={ind} onClick={()=>{toUserPage(item._id)}}>
+                  {
+                  item.values.map((value, ind) => <td key={ind}>{value}</td>)
+                  }
+                </tr>
+              );
+            })
+          }
+        </tbody>
+      </table>
+    </div>
   );
 }

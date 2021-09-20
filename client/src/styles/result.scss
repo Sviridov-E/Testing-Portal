@@ -7,9 +7,27 @@
     width: 40%;
     margin-top: 2.5rem;
     margin-bottom: 0;
+    .select-wrapper {
+      svg.caret {
+        z-index: 10;
+      }
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 5%;
+        right: 0;
+        height: 95%;
+        width: 50px;
+        background: linear-gradient(to right, rgba(255,255,255, 0), rgba(255, 255,255, 1) 50%, rgba(255, 255,255, 1));
+        z-index: 2;
+      }
+    }
   }
   .chart {
-    margin: 2rem;
+    max-width: 100%;
+    h5 {
+      margin: 2rem 0 1rem 2rem;
+    }
     .not-passed {
       padding-left: 2rem;
     }
@@ -23,6 +41,32 @@
         h6 {
           text-align: center;
           font-weight: bold;
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 1024px) {
+    .header {
+      h3 {
+        font-size: 2.4rem;
+      }
+    }
+  }
+  @media screen and (max-width: 650px) {
+    .header {
+      display: block;
+      h3 {
+        font-size: 1.8rem;
+      }
+      .input-field {
+        width: 100%;
+      }
+    }
+    .chart {
+      .cards {
+        .chart-card {
+          min-width: auto;
+          width: 90vw;
         }
       }
     }

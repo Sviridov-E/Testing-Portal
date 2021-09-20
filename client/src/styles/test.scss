@@ -6,6 +6,7 @@
 .test-description {
   p {
     text-indent: 2rem;
+    text-align: justify;
   }
   .attention {
     color: #e57373;
@@ -16,19 +17,22 @@
     align-items: center;
     .already-passed {
       width: 20%;
-
     }
   }
-
+  @media screen and (max-width: 600px) {
+    h3 {
+      font-size: 2.2rem;
+    }
+  }
 }
 .passing-test {
   .test-description {
-    color: rgba(0, 0, 0, 0.5);;
+    color: rgba(0, 0, 0, 0.5);
   }
   .questions {
     .question {
       margin-left: 2rem;
-      span{
+      span {
         color: #263238;
         &:after {
           background: #3d5afe;
@@ -46,7 +50,7 @@
     }
   }
   button {
-    margin-top: .5rem;
+    margin-top: 0.5rem;
   }
   .stats {
     text-align: right;

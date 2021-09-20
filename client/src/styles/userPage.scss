@@ -4,12 +4,14 @@
     justify-content: space-between;
     div {
       display: flex;
-      img {
-        display: block;
-        height: 2rem;
-        margin-top: 10.2%;
-        margin-left: 1rem;
-        filter: opacity(45%);
+      h3 {
+        display: flex;
+        align-items: center;
+        img {
+          height: 2rem;
+          filter: opacity(45%);
+          margin-left: 20px;
+        }
       }
     }
     h4 {
@@ -43,6 +45,16 @@
   }
   .modal {
     .modal-content {
+      p {
+        text-align: justify;
+        text-indent: 1rem;
+      }
+      .dynamic-info {
+        span {
+          display: block;
+          text-align: justify;
+        }
+      }
       .indent-1 {
         padding-left: .3rem;
         font-size: 1.5rem;
@@ -54,8 +66,41 @@
       .indent-3 {
         padding-left: 2rem;
       }
-      width: 90%;
+      width: 100%;
       margin: 0 auto;
+    }
+  }
+  @media screen and (max-width: 700px) {
+    .head {
+      div {
+        h3 {
+          font-size: 1.5rem;
+          max-width: 70vw;
+          img {
+            height: 1.5rem; 
+            margin-left: 10px;
+          }
+        }
+      }
+      h4 {
+        padding-right: 0;
+      }
+    }
+    .modal {
+      max-height: 75vh;
+      width: 90%;
+      top: 3%!important;
+      .modal-content {
+        padding: 12px;
+        h4 {
+          font-size: 1.8rem;
+        }
+        .additional-info {
+          h4 {
+            font-size: 1.6;
+          }
+        }
+      }
     }
   }
 }

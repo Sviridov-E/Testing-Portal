@@ -81,7 +81,7 @@ export const PassingTest = ({ id, name, quantity, returnToTestList, timeout }) =
           <h3 className="col s12 center">{name}</h3>
         </div>
         <div className="row">
-          <div className="col s6 offset-s3 center">
+          <div className="col m6 s12 offset-m3 center">
             <h5>Результат сохранен!</h5>
             <p>Результаты теста вы можете посмотреть в личном кабинете</p>
             <a href="/" onClick={returnToTestList} className="waves-effect waves-light btn-large indigo darken-1">Вернуться к списку тестов</a>
@@ -97,7 +97,7 @@ export const PassingTest = ({ id, name, quantity, returnToTestList, timeout }) =
         <h3 className="col s12 center">{name}</h3>
       </div>
       <div className="row">
-        <div className="col s6 offset-s3 question">
+        <div className="col m6 s12 offset-m3 question">
           {          
             savingResult ? 
             <div className='center'>

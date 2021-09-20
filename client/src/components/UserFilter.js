@@ -30,31 +30,31 @@ export const UserFilter = ({ requestParams, setRequestParams, params, whereSearc
   }
   let content = {
     firstName: (
-      <div key={0} className="input-field col firstname">
+      <div key={0} className="input-field col l3 m6 s12 firstname">
         <input placeholder="Петр" id="first_name" type="text" className="validate" name="firstName" onChange={handleChange}/>
         <label className="active" htmlFor="first_name">Имя</label>
       </div>
     ),
     lastName: (
-      <div key={1} className="input-field col lastname">
+      <div key={1} className="input-field col l3 m6 s12 lastname">
         <input placeholder="Иванов" id="last_name" type="text" className="validate" name="lastName" onChange={handleChange}/>
         <label className="active" htmlFor="last_name">Фамилия</label>
       </div>
     ),
     gradeNumber: (
-      <div key={2} className="input-field col class-number">
+      <div key={2} className={`input-field col class-number ${params ? 'm3 s6' : 'l1 m2 s6'}`}>
         <input placeholder="10" id="class_number" type="text" className="validate" name="gradeNumber" onChange={handleChange}/>
         <label className="active" htmlFor="class_number">Класс</label>
       </div>
     ),
     gradeLetter: (
-      <div key={3} className="input-field col class-letter">
+      <div key={3} className={`input-field col class-letter ${params ? 'm3 s6' : 'l1 m2 s6'}`}>
         <input placeholder="Б" id="class_letter" type="text" className="validate" name="gradeLetter" onChange={handleChange}/>
         <label className="active" htmlFor="class_letter">Буква</label>
       </div>
     ),
     gender: (
-      <div key={4} className="input-field col gender">
+      <div key={4} className={`input-field col gender ${params ? 'm3 s6' : 'l2 m4 s6'}`}>
         <select name='gender' onChange={handleChange} value={requestParams.gender ? requestParams.gender : 'Все'}>
           <option value={''}>Все</option>
           <option value={'male'}>М</option>
@@ -64,7 +64,7 @@ export const UserFilter = ({ requestParams, setRequestParams, params, whereSearc
       </div>
     ),
     button: (
-      <div key={5} className="search-button">
+      <div key={5} className={`search-button col ${params ? 'm3 s6' : 'l2 m4 s6'}`}>
         <a href="/" onClick={handleButtonClick} className="waves-effect waves-light btn indigo accent-4"><div><i className="material-icons">search</i>Найти</div></a>
       </div>
     )

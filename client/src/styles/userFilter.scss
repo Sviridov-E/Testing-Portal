@@ -1,28 +1,70 @@
+$main-color: #6c6c6d;
+$typed-color: #333333;
+$secondary-color: #304ffe;
+$valid-color: $secondary-color;
+$invalid-color: #f44336;
+
 .user-filter {
-    .card-panel {
-      display: flex;
-      justify-content: space-between;
-    }
-    .class-number {
-      input {
-        width: 40px;
-      }
-    }
-    .class-letter {
-      input {
-        width: 40px;
-      }
-    }
-    .search-button {
-      align-self: center;
-      a {
-        i {
-          padding-right: .5rem;
+  .card-panel {
+    .input-field {
+      label {
+        color: $main-color;
+        &.active {
+          color: $main-color;
         }
-        div {
-          display: flex;
-          align-items: center;
+      }
+      input[type='text'],
+      input[type='password'] {
+        color: $typed-color;
+        border-color: $main-color;
+        &:focus {
+          border-bottom-color: $secondary-color !important;
+          box-shadow: 0 1px 0 0 $secondary-color !important;
+        }
+        &.valid {
+          border-color: $valid-color;
+          box-shadow: 0 1px 0 0 $valid-color;
+        }
+        &.invalid {
+          border-color: $invalid-color;
+          box-shadow: 0 1px 0 0 $invalid-color;
+          & ~ .helper-text {
+            color: $invalid-color;
+          }
+        }
+        &:focus + label {
+          color: $main-color !important;
+        }
+      }
+      .input-field.gender {
+        label {
+          color: $main-color;
         }
       }
     }
   }
+  .search-button {
+    height: 100%;
+    text-align: right;
+    margin-top: 1%;
+    a {
+      i {
+        padding-right: 0.5rem;
+      }
+      div {
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+  @media screen and (max-width: 992px) {
+    .search-button {
+      margin-top: 3%;
+    }
+  }
+  @media screen and (max-width: 600px) {
+    .search-button {
+      margin-top: 6%;
+    }
+  }
+}

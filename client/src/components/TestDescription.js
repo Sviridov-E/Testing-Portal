@@ -13,16 +13,16 @@ export const TestDescription = ({ data, clickStart, testIsAlreadyPassed, returnT
       <h3 className="col s12 center">{data.name}</h3>
     </div>
     <div className="row">
-      <p className="col s4 offset-s4">{data.description}</p>
+      <p className="col s12 m8 offset-m2 l4 offset-l4">{data.description}</p>
     </div>
     {
       data.timeout && (
       <div className="row">
-        <h6 className="col s4 offset-s4"><strong><span className="attention">Внимание! </span>Сдача теста ограничена по времени: </strong>{showTime(data.timeout)}</h6>
+        <h6 className="col s12 m8 offset-m2 l4 offset-l4"><strong><span className="attention">Внимание! </span>Сдача теста ограничена по времени: </strong>{showTime(data.timeout)}</h6>
       </div>)
     }
     <div className="row">
-      <p className="col s4 offset-s4"><strong>Количество вопросов: </strong>{data.quantityOfQuestions}</p>
+      <p className="col s12 m8 offset-m2 l4 offset-l4"><strong>Количество вопросов: </strong>{data.quantityOfQuestions}</p>
     </div>
     <div className="row button">
       {
