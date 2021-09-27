@@ -1,4 +1,4 @@
-# Портал
+# Портал для психологического тестирования
 
 Расположен по адресу: https://psychological-testing.herokuapp.com
 
